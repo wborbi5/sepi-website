@@ -1,0 +1,199 @@
+/* ============================================================
+   Vanguard Venture Society — shared theme stylesheet
+   Single source of truth for fonts, design tokens, and the
+   reusable UI primitives shared across every screen.
+
+   Loaded at the END of each screen's <head> so it normalizes the
+   Stitch-generated, per-page styles onto one coherent system.
+
+   ACCENT: change --vv-accent (+ the matching tokens in theme.js)
+   to retheme the entire system. Cyan original = #00E5FF / 0,229,255.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
+
+:root {
+  /* Accent (Electric Blue) */
+  --vv-accent: #2563EB;
+  --vv-accent-rgb: 37, 99, 235;
+  --vv-accent-bright: #3B82F6;
+
+  /* Surfaces */
+  --vv-bg: #0A0A0B;
+  --vv-surface: #131314;
+  --vv-surface-raised: #161618;
+  --vv-on-surface: #e5e2e3;
+
+  /* Hairlines */
+  --vv-border: rgba(255, 255, 255, 0.10);
+  --vv-border-faint: rgba(255, 255, 255, 0.05);
+}
+
+/* ---------- Base ---------- */
+body {
+  background-color: var(--vv-bg);
+  color: var(--vv-on-surface);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Glass surfaces (glass-card / glass-panel / forged-panel) ---------- */
+.glass-card,
+.glass-panel,
+.forged-panel {
+  background: rgba(22, 22, 24, 0.6);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid var(--vv-border);
+  position: relative;
+  overflow: hidden;
+}
+.glass-card::before,
+.glass-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+}
+.glass-card:hover {
+  background: rgba(22, 22, 24, 0.8);
+  border-color: rgba(var(--vv-accent-rgb), 0.3);
+  box-shadow: 0 0 20px rgba(var(--vv-accent-rgb), 0.08);
+}
+/* forged-panel keeps its accent top-rule */
+.forged-panel { border-color: #434655; }
+.forged-panel::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--vv-accent), transparent);
+  opacity: 0.5;
+}
+
+/* ---------- Industrial borders ---------- */
+.industrial-border {
+  border: 1px solid var(--vv-border-faint);
+  position: relative;
+}
+.industrial-border::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px;
+  width: 10px; height: 10px;
+  border-top: 1px solid var(--vv-accent);
+  border-left: 1px solid var(--vv-accent);
+}
+.industrial-border-accent { border-left: 4px solid var(--vv-accent); }
+
+/* ---------- Blueprint grid backgrounds (all variants unified) ---------- */
+.blueprint-bg,
+.blueprint-grid-bg,
+.blueprint-lines {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.blueprint-grid {
+  background-image: radial-gradient(rgba(var(--vv-accent-rgb), 0.15) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ---------- Accent glows & text ---------- */
+.primary-glow,
+.glow-cyan,
+.noir-glow,
+.industrial-glow {
+  box-shadow: 0 0 20px rgba(var(--vv-accent-rgb), 0.20);
+}
+.text-glow,
+.cyan-glow-text {
+  text-shadow: 0 0 12px rgba(var(--vv-accent-rgb), 0.35);
+}
+
+/* ---------- Hover / focus accent borders ---------- */
+.cyan-border-hover:hover,
+.glow-border:hover,
+.electric-glow:hover {
+  border-color: var(--vv-accent);
+  box-shadow: inset 0 0 10px rgba(var(--vv-accent-rgb), 0.10), 0 0 15px rgba(var(--vv-accent-rgb), 0.12);
+}
+.inner-light-hover:hover {
+  border-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), transparent) 1;
+}
+.cyan-border-glow:focus-within {
+  border-bottom-color: var(--vv-accent);
+  box-shadow: 0 4px 12px -4px rgba(var(--vv-accent-rgb), 0.30);
+}
+
+/* ---------- Accent connector lines / cards ---------- */
+.draft-card {
+  background: linear-gradient(135deg, rgba(var(--vv-accent-rgb), 0.10) 0%, rgba(19, 19, 20, 1) 100%);
+  border: 1px solid rgba(var(--vv-accent-rgb), 0.20);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.draft-card:hover {
+  border-color: var(--vv-accent);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(var(--vv-accent-rgb), 0.15);
+}
+.gate-line::before {
+  content: '';
+  position: absolute;
+  left: 50%; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--vv-accent), transparent);
+  transform: translateX(-50%);
+}
+.step-line::before {
+  content: '';
+  position: absolute;
+  left: 19px; top: 40px; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--vv-accent) 0%, rgba(132, 147, 150, 0.1) 100%);
+}
+.timeline-line {
+  background: linear-gradient(to bottom, var(--vv-accent) 0%, var(--vv-accent) 50%, #222225 100%);
+}
+.event-status-active::before {
+  content: '';
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: var(--vv-accent);
+  border-radius: 50%;
+  margin-right: 8px;
+  box-shadow: 0 0 8px var(--vv-accent);
+}
+
+/* ---------- Imagery ---------- */
+.gritty-photo {
+  filter: grayscale(100%) contrast(120%) brightness(80%);
+  transition: all 0.5s ease;
+}
+.gritty-photo:hover {
+  filter: grayscale(0%) contrast(100%) brightness(100%);
+}
+
+/* ---------- Pulse animation ---------- */
+@keyframes pulse-cyan {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+.animate-pulse-cyan { animation: pulse-cyan 3s infinite ease-in-out; }
+
+/* ---------- Misc ---------- */
+.scroll-mask { -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); }
+.rank-number { font-family: 'Playfair Display', serif; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--vv-bg); }
+::-webkit-scrollbar-thumb { background: #222225; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--vv-accent); }

@@ -1,0 +1,10 @@
+# Local agent / editor config
+.claude/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node (none today, but safe)
+node_modules/

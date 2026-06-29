@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sigma Eta Pi — Build your next idea</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    colors: { phoenix: "#2563EB", "phoenix-bright": "#3B82F6", ink: "#04060f" },
+    fontFamily: { sans: ["Inter","sans-serif"], mono: ["JetBrains Mono","monospace"] },
+  } } };
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: "Inter", sans-serif; -webkit-font-smoothing: antialiased; color: #fff; background: #04060f; }
+  .label { font-family: "JetBrains Mono", monospace; letter-spacing: 0.22em; text-transform: uppercase; }
+  ::selection { background: #2563EB; color: #fff; }
+  .hairline { border-color: rgba(255,255,255,0.10); }
+
+  /* HERO: medal photo as full background */
+  .hero { background-image: url("assets/hero-badge@3x.jpg"); background-size: cover; background-position: center; }
+  .hero-scrim {
+    background:
+      linear-gradient(90deg, rgba(4,6,15,.88) 0%, rgba(4,6,15,.55) 42%, rgba(4,6,15,.08) 70%, rgba(4,6,15,0) 100%),
+      linear-gradient(to bottom, rgba(4,6,15,.35) 0%, rgba(4,6,15,0) 28%, rgba(4,6,15,0) 62%, #04060f 100%);
+  }
+
+  /* COSMIC: blue space + auras + stars, blends through every section after the hero */
+  .cosmic {
+    position: relative;
+    background-color: #04060f;
+    background-image:
+      linear-gradient(to bottom, #04060f 0%, rgba(4,6,15,0) 14%),
+      radial-gradient(55% 45% at 18% 5%,  rgba(37,99,235,0.30), transparent 70%),
+      radial-gradient(45% 45% at 88% 16%, rgba(59,130,246,0.20), transparent 70%),
+      radial-gradient(50% 40% at 8% 42%,  rgba(37,99,235,0.18), transparent 70%),
+      radial-gradient(60% 45% at 90% 60%, rgba(59,130,246,0.18), transparent 72%),
+      radial-gradient(55% 40% at 25% 80%, rgba(37,99,235,0.16), transparent 72%),
+      radial-gradient(70% 50% at 50% 100%, rgba(37,99,235,0.20), transparent 72%);
+  }
+  .cosmic::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background-image: url("assets/stars-far.png"), url("assets/stars-near.png");
+    background-repeat: repeat; background-size: 600px 600px, 600px 600px;
+    animation: twinkle 7s ease-in-out infinite;
+  }
+  @keyframes twinkle { 0%,100% { opacity: .55; } 50% { opacity: .95; } }
+  .cosmic > * { position: relative; z-index: 1; }
+
+  /* logo marquee — uniform white chips */
+  .marq { overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent); }
+  .marq-track { display: flex; align-items: center; gap: 22px; width: max-content; animation: marq 45s linear infinite; }
+  @keyframes marq { to { transform: translateX(-50%); } }
+  .chip { display: inline-flex; align-items: center; justify-content: center; height: 60px; padding: 0 22px; border-radius: 12px; background: #fff; flex: none; transition: transform .3s ease; }
+  .chip:hover { transform: translateY(-2px); }
+  .chip img { height: 28px; width: auto; max-width: 200px; object-fit: contain; display: block; }
+  .chip.full { width: 100%; }
+
+  .glow-btn { box-shadow: 0 0 0 1px rgba(59,130,246,.55), 0 0 34px rgba(37,99,235,.55); animation: pulse 3s ease-in-out infinite; }
+  .glow-btn:hover { box-shadow: 0 0 0 1px rgba(59,130,246,.9), 0 0 60px rgba(37,99,235,.85); transform: translateY(-1px); }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 1px rgba(59,130,246,.45), 0 0 26px rgba(37,99,235,.45); } 50% { box-shadow: 0 0 0 1px rgba(59,130,246,.7), 0 0 46px rgba(37,99,235,.7); } }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: all .8s cubic-bezier(.22,1,.36,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* "ventures" / "where we work" — space-y title with a blue aura glow */
+  .space-title { font-family: "Orbitron", sans-serif; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #dbeafe;
+    text-shadow: 0 0 18px rgba(59,130,246,.85), 0 0 44px rgba(37,99,235,.55), 0 0 90px rgba(37,99,235,.3); }
+  /* frosted-white "cloud" panel holding company logos (blue aura around it) */
+  .cloud { position: relative; background: rgba(255,255,255,0.93); border: 1px solid rgba(255,255,255,0.55); border-radius: 32px;
+    padding: 26px; backdrop-filter: blur(6px); box-shadow: 0 0 70px rgba(37,99,235,0.32), 0 24px 60px rgba(0,0,0,0.45); }
+  /* floating logos — natural colour on the white panel, light up to full colour + pop on hover */
+  .cloud-logos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 22px 30px; }
+  .cloud-chip { display: inline-flex; animation: floatBob var(--dur, 6s) ease-in-out var(--delay, 0s) infinite; }
+  .cloud-chip img { height: 54px; width: auto; max-width: 180px; object-fit: contain; display: block;
+    filter: grayscale(.55); opacity: .85;
+    transition: opacity .35s ease, transform .4s cubic-bezier(.2,.8,.2,1.1), filter .35s ease; }
+  .cloud:hover .cloud-chip img { opacity: .4; filter: grayscale(.9); }   /* dim the others */
+  .cloud .cloud-chip:hover { animation-play-state: paused; z-index: 2; }
+  .cloud .cloud-chip:hover img {                                          /* the hovered one lights up + pops */
+    opacity: 1; transform: scale(1.5); filter: grayscale(0) drop-shadow(0 10px 18px rgba(15,23,42,.35)); }
+  @keyframes floatBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+
+  /* ---- backdrop: clean blue-space (nebula glow + subtle stars, framed by a vignette) ---- */
+  #heroStars { background-image:url("assets/stars-far.png"),url("assets/stars-near.png"); background-repeat:repeat; background-size:560px 560px,820px 820px; opacity:.3; }
+  #heroVignette { background: radial-gradient(120% 90% at 50% 42%, transparent 38%, rgba(4,6,15,.55) 72%, #04060f 100%); }
+
+  /* ---- the phoenix: cool blue flare + mini-explosion entrance ---- */
+  #heroImg { position:relative; z-index:1; filter: drop-shadow(0 0 9px rgba(147,197,253,.8)) drop-shadow(0 0 34px rgba(37,99,235,.6)); }
+  #phoenixFlare {
+    position:absolute; left:50%; top:48%; width:122%; height:158%; transform:translate(-50%,-50%); z-index:0; pointer-events:none;
+    background: radial-gradient(closest-side, rgba(96,165,250,.55), rgba(37,99,235,.26) 46%, transparent 72%);
+    filter: blur(18px);
+  }
+  .boom-particle { display:none; }
+  @media (prefers-reduced-motion: no-preference) {
+    #heroStars { animation: heroTwinkle 7s ease-in-out infinite; }
+    #phoenixFlare { opacity:0; animation: flareIn 1.7s ease-out .7s forwards, flarePulse 5s ease-in-out 2.5s infinite; }
+    #heroImg { opacity:0; transform:scale(.62); animation: phoenixWarp 2s cubic-bezier(.2,.7,.12,1) .5s forwards; }
+    .boom-particle {
+      display:block; position:absolute; left:50%; top:50%; width:5px; height:5px; margin:-2.5px 0 0 -2.5px;
+      border-radius:50%; background:#dbeafe; box-shadow:0 0 7px 2px rgba(147,197,253,.9); opacity:0;
+      animation: dustIn 1.5s cubic-bezier(.32,0,.5,1) forwards;
+    }
+    /* the phoenix warps into focus from deep space: small + blurry -> sharp */
+    @keyframes phoenixWarp {
+      0%   { opacity:0; transform:scale(.62); filter:blur(16px) brightness(1.7) drop-shadow(0 0 0 rgba(96,165,250,0)); }
+      45%  { opacity:.7; }
+      80%  { transform:scale(1.03); filter:blur(0) brightness(1.25) drop-shadow(0 0 16px rgba(191,219,254,.95)) drop-shadow(0 0 50px rgba(37,99,235,.75)); }
+      100% { opacity:1; transform:scale(1); filter:blur(0) brightness(1) drop-shadow(0 0 9px rgba(147,197,253,.8)) drop-shadow(0 0 34px rgba(37,99,235,.6)); }
+    }
+    /* stardust streaks inward and coalesces into the logo */
+    @keyframes dustIn {
+      0%   { opacity:0; transform:translate(var(--tx,0), var(--ty,0)) scale(1.15); }
+      18%  { opacity:1; }
+      100% { opacity:0; transform:translate(0,0) scale(.2); }
+    }
+    @keyframes flareIn { 0% { opacity:0; transform:translate(-50%,-50%) scale(.5); } 100% { opacity:.85; transform:translate(-50%,-50%) scale(1); } }
+    @keyframes flarePulse { 0%,100% { opacity:.72; transform:translate(-50%,-50%) scale(1); } 50% { opacity:1; transform:translate(-50%,-50%) scale(1.07); } }
+    @keyframes heroTwinkle { 0%,100% { opacity:.2; } 50% { opacity:.4; } }
+  }
+
+  /* expanding header: big + transparent over the hero at top, shrinks to a blurred bar on scroll */
+  #topnav { transition: background .4s ease, box-shadow .4s ease, border-color .4s ease; border-bottom:1px solid transparent; }
+  #topnav #navbar { height:7.5rem; transition: height .4s ease; }
+  #topnav #navLogo { height:3.5rem; transition: height .4s ease; }
+  #topnav #navWordmark { opacity:1; max-width:16rem; overflow:hidden;
+    transition: opacity .35s ease, max-width .4s ease, margin .4s ease; text-shadow:0 2px 16px rgba(4,6,15,.7); }
+  #navLinks a { font-size:.8rem; transition: font-size .4s ease; }
+  #topnav.scrolled { background: rgba(4,6,15,0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-color: rgba(255,255,255,0.1); box-shadow:0 10px 30px rgba(0,0,0,.3); }
+  #topnav.scrolled #navbar { height:5rem; }
+  #topnav.scrolled #navLogo { height:2.25rem; }
+  #topnav.scrolled #navWordmark { opacity:0; max-width:0; margin-left:-0.75rem; text-shadow:none; }
+  #topnav.scrolled #navLinks a { font-size:.66rem; }
+  @keyframes navIn { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:none; } }
+  .nav-fade { animation: navIn .7s ease both; animation-delay: var(--d,0s); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marq-track, .glow-btn, .cosmic::before, .cloud-chip, .nav-fade { animation: none; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="topnav" class="fixed top-0 inset-x-0 z-50">
+  <div id="navbar" class="relative max-w-6xl mx-auto px-6 flex items-center justify-between">
+    <a href="home.html" class="flex items-center gap-3 nav-fade" style="--d:0s" aria-label="Sigma Eta Pi — Home">
+      <img src="assets/emblem-white.png" alt="Sigma Eta Pi phoenix" id="navLogo" class="w-auto"/>
+      <span id="navWordmark" class="font-black leading-[1.02] text-white text-2xl whitespace-nowrap">Sigma<br/>Eta&nbsp;Pi™</span>
+    </a>
+    <div id="navLinks" class="hidden md:flex items-center gap-7">
+      <a href="community.html" class="nav-fade label text-white/70 hover:text-white transition-colors" style="--d:.12s">About</a>
+      <a href="roster.html" class="nav-fade label text-white/70 hover:text-white transition-colors" style="--d:.2s">People</a>
+      <a href="program.html" class="nav-fade label text-white/70 hover:text-white transition-colors" style="--d:.28s">Growth</a>
+      <a href="recruitment.html" class="nav-fade label px-5 py-2 rounded-full bg-phoenix text-white hover:bg-phoenix-bright transition-colors" style="--d:.36s">Recruitment</a>
+    </div>
+    <button id="navToggle" class="md:hidden relative z-10 -mr-1 w-10 h-10 flex items-center justify-center text-white" aria-label="Open menu" aria-expanded="false">
+      <svg id="navIconOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      <svg id="navIconClose" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6 hidden"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div id="mobileMenu" class="md:hidden hidden mx-4 mb-3 rounded-2xl border border-white/10 bg-[#04060f]/95 backdrop-blur-xl overflow-hidden">
+    <a href="community.html" class="block label text-sm px-6 py-4 text-white/80 hover:bg-white/5 border-b border-white/5">About</a>
+    <a href="roster.html" class="block label text-sm px-6 py-4 text-white/80 hover:bg-white/5 border-b border-white/5">People</a>
+    <a href="program.html" class="block label text-sm px-6 py-4 text-white/80 hover:bg-white/5 border-b border-white/5">Growth</a>
+    <a href="recruitment.html" class="block label text-sm px-6 py-4 text-phoenix-bright hover:bg-white/5">Recruitment</a>
+  </div>
+</nav>
+
+<!-- HERO — phoenix logo bursts in over a preserved blue-space backdrop, then shrinks on scroll -->
+<div id="heroTrack" class="relative" style="height:220vh;">
+  <div class="sticky top-0 h-screen w-full overflow-hidden">
+    <!-- preserved blue-space backdrop: nebula glow + subtle stars + vignette (no phoenix) -->
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('assets/hero-bg-blur.jpg');"></div>
+    <div id="heroStars" class="absolute inset-0"></div>
+    <div id="heroVignette" class="absolute inset-0"></div>
+    <!-- fade the hero's bottom to the page color so it blends seamlessly into the cosmic section -->
+    <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-b from-transparent to-[#04060f]"></div>
+
+    <div class="relative h-full flex flex-col items-center justify-center text-center px-6">
+      <div id="heroImgWrap" class="relative will-change-transform" style="transform-origin:center center;">
+        <div id="phoenixFlare"></div>
+        <img id="heroImg" src="assets/phoenix-blue.png" alt="Sigma Eta Pi phoenix" class="w-full max-w-lg mx-auto will-change-transform" style="transform-origin:center center;"/>
+        <div id="boom" class="pointer-events-none absolute left-1/2 top-1/2"></div>
+      </div>
+      <h1 id="heroHeadline" class="mt-8 text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.02] text-white opacity-0 will-change-transform">
+        Miami's Home For <span class="text-phoenix-bright">Innovators</span>.
+      </h1>
+    </div>
+  </div>
+</div>
+
+<!-- everything after the landing page lives on the cosmic background -->
+<div class="cosmic">
+
+  <!-- PIECE 1 — TAKE A CHANCE (text left, Ventures cloud right) -->
+  <section class="max-w-6xl mx-auto px-6 pt-32 pb-28 grid lg:grid-cols-2 gap-14 items-center">
+    <div class="reveal">
+      <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Take a<br/><span class="text-phoenix-bright">chance</span></h2>
+      <p class="mt-7 text-lg text-white/65 leading-relaxed max-w-lg">
+        When you're a student, shots on goal is a more valuable metric than goals scored — so we challenge you to grow your skills, connect with professionals, and gain experience through action, <span class="text-white">not theory</span>. We provide the resources, mentorship, and a community of like-minded builders who push you to be better.
+      </p>
+    </div>
+    <div class="reveal flex flex-col items-center">
+      <h3 class="space-title text-2xl md:text-3xl mb-6">Ventures</h3>
+      <div class="cloud w-full max-w-lg">
+        <div id="venturesCloud" class="cloud-logos"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PIECE 2 — FIND YOUR COMMUNITY (photos left, text right) -->
+  <section class="max-w-6xl mx-auto px-6 py-28 grid lg:grid-cols-2 gap-14 items-center">
+    <div class="reveal order-2 lg:order-1 relative mx-auto w-full max-w-[540px] h-[470px] sm:h-[540px]">
+      <!-- night-glow squiggles, lines, sparkle stars, brackets & spirals -->
+      <svg class="absolute inset-0 w-full h-full pointer-events-none overflow-visible" viewBox="0 0 540 540" fill="none" aria-hidden="true" style="filter:drop-shadow(0 0 6px rgba(96,165,250,.8));">
+        <path d="M26,52 q14,-18 28,0 t28,0 t28,0 t28,0" stroke="#93c5fd" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M505,46 C448,30 405,46 384,78" stroke="#7cc0ff" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M384,78 l18,-7 M384,78 l9,18" stroke="#7cc0ff" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M500,104 C503,120 510,127 526,130 C510,133 503,140 500,156 C497,140 490,133 474,130 C490,127 497,120 500,104 Z" fill="#bfdbfe"/>
+        <path d="M48,300 C50,310 55,315 65,317 C55,319 50,324 48,334 C46,324 41,319 31,317 C41,315 46,310 48,300 Z" fill="#93c5fd"/>
+        <path d="M120,150 h-26 v26 M420,150 h26 v26 M120,498 h-26 v-26 M420,498 h26 v-26" stroke="#60a5fa" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M470,470 c0,-14 -20,-16 -24,-3 c-5,16 18,22 28,8 c11,-15 -8,-34 -27,-28" stroke="#7cc0ff" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M150,524 q18,-14 36,0 t36,0 t36,0" stroke="#93c5fd" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="70" cy="120" r="2.6" fill="#bfdbfe"/>
+        <circle cx="500" cy="360" r="2.6" fill="#93c5fd"/>
+        <circle cx="60" cy="470" r="2.2" fill="#bfdbfe"/>
+      </svg>
+      <img src="assets/community/20260511_181827_4D0F8C.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-phoenix/40 transition-transform duration-300 hover:z-10" style="left:3%;top:24px;width:56%;height:190px;transform:rotate(-3deg);z-index:2;box-shadow:0 0 30px rgba(37,99,235,.42);"/>
+      <img src="assets/community/20260422_074954_4E1929.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-phoenix/40 transition-transform duration-300 hover:z-10" style="right:2%;top:64px;width:42%;height:150px;transform:rotate(4deg);z-index:3;box-shadow:0 0 30px rgba(37,99,235,.42);"/>
+      <img src="assets/community/20260429_214338_42EDFE.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-phoenix/40 transition-transform duration-300 hover:z-10" style="left:4%;top:228px;width:44%;height:150px;transform:rotate(-5deg);z-index:4;box-shadow:0 0 30px rgba(37,99,235,.42);"/>
+      <img src="assets/community/20260511_181827_4A2EBF.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-phoenix/40 transition-transform duration-300 hover:z-10" style="right:3%;bottom:18px;width:60%;height:185px;transform:rotate(2deg);z-index:3;box-shadow:0 0 30px rgba(37,99,235,.42);"/>
+    </div>
+    <div class="reveal order-1 lg:order-2">
+      <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Find your<br/><span class="text-phoenix-bright">community</span></h2>
+      <p class="mt-7 text-lg text-white/65 leading-relaxed max-w-lg">
+        We pull together Miami's most driven builders and creatives to form real friendships that last long after graduation. Members push each other, share what they're learning, and make entrepreneurship feel concrete. With small recruitment classes, we ensure deep connection between members and purposeful relationships.
+      </p>
+    </div>
+  </section>
+
+  <!-- PIECE 3 — GROW YOUR CAREER (text left) -->
+  <section class="max-w-6xl mx-auto px-6 py-28 grid lg:grid-cols-2 gap-14 items-center">
+    <div class="reveal">
+      <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Grow your<br/><span class="text-phoenix-bright">career</span></h2>
+      <p class="mt-7 text-lg text-white/65 leading-relaxed max-w-lg">
+        Realize your career ambitions and gain an unfair advantage through your skills, network, and experience. By offering opportunities like internships and co-ops as soon as you step foot on campus, we aim to gain as much experience as possible.
+      </p>
+    </div>
+    <div class="reveal flex flex-col items-center">
+      <h3 class="space-title text-2xl md:text-3xl mb-6">Where we work</h3>
+      <div class="cloud w-full max-w-lg">
+        <div id="worksCloud" class="cloud-logos"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEE OUR SUCCESS -->
+  <section class="py-28 px-6 border-t hairline">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="reveal text-4xl md:text-6xl font-black tracking-tight">See our <span class="text-phoenix-bright">Success</span></h2>
+
+      <!-- numbers -->
+      <div class="reveal mt-8 border hairline rounded-2xl py-12 px-8 grid grid-cols-2 lg:grid-cols-4 gap-y-10 bg-white/[0.03] backdrop-blur-sm">
+        <div><div class="text-5xl md:text-6xl font-black text-white"><span data-count="17">0</span></div><p class="label text-[10px] text-white/45 mt-3">Ventures started</p></div>
+        <div><div class="text-5xl md:text-6xl font-black text-phoenix-bright"><span data-count="92" data-prefix="$" data-suffix="k+">0</span></div><p class="label text-[10px] text-white/45 mt-3">Pitch competition wins</p></div>
+        <div><div class="text-5xl md:text-6xl font-black text-phoenix-bright"><span data-count="95" data-prefix="$" data-suffix="k+">0</span></div><p class="label text-[10px] text-white/45 mt-3">Raised for ventures</p></div>
+        <div><div class="text-5xl md:text-6xl font-black text-phoenix-bright"><span data-count="310" data-prefix="$" data-suffix="k+">0</span></div><p class="label text-[10px] text-white/45 mt-3">Total revenue</p></div>
+      </div>
+
+      <div class="reveal mt-16">
+        <a href="recruitment.html" class="glow-btn inline-block label text-sm px-14 py-5 rounded-full bg-phoenix text-white hover:bg-phoenix-bright transition-all">Join the Fun</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t hairline px-6 py-16">
+    <!-- top row: phoenix lockup · socials -->
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+      <a href="home.html" class="flex items-center gap-5" aria-label="Sigma Eta Pi home">
+        <img src="assets/emblem-white.png" alt="Sigma Eta Pi phoenix" class="h-16 w-auto"/>
+        <span class="leading-none">
+          <span class="block text-3xl font-black tracking-tight text-white">Sigma Eta Pi</span>
+          <span class="block mt-1 text-xl font-medium text-white/45">@ Miami University</span>
+        </span>
+      </a>
+
+      <div class="flex items-center justify-center gap-4">
+        <a href="https://www.instagram.com/sigmaetapimu/" target="_blank" rel="noopener" aria-label="Instagram" class="w-11 h-11 border hairline rounded-full flex items-center justify-center hover:border-phoenix hover:text-phoenix-bright transition-colors">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.67 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63 19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.41-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/sigma-eta-pi-miami-university/" target="_blank" rel="noopener" aria-label="LinkedIn" class="w-11 h-11 border hairline rounded-full flex items-center justify-center hover:border-phoenix hover:text-phoenix-bright transition-colors">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- divider + copyright -->
+    <div class="max-w-6xl mx-auto mt-12 pt-6 border-t hairline label text-[10px] text-white/30 text-center">© 2026 Sigma Eta Pi · Omicron Chapter, Miami University</div>
+  </footer>
+</div>
+
+<script>
+  // Scroll-shrink hero: the phoenix logo starts large and shrinks to its resting size
+  // as you scroll the track — nav and headline fade in. The blue-space backdrop stays put.
+  (function () {
+    const track = document.getElementById("heroTrack");
+    const wrap = document.getElementById("heroImgWrap");
+    const headline = document.getElementById("heroHeadline");
+    const nav = document.getElementById("topnav");
+    if (!track || !wrap) return;
+
+    // expanding header: visible + large at the top, shrinks to the compact bar once scrolled
+    if (nav) {
+      const onNav = () => nav.classList.toggle("scrolled", scrollY > 24);
+      addEventListener("scroll", onNav, { passive: true });
+      onNav();
+    }
+
+    function apply(p) {
+      const baseW = wrap.clientWidth, baseH = wrap.clientHeight;
+      if (!baseW || !baseH) return;
+      const big = Math.max(Math.min(innerWidth * 0.78 / baseW, innerHeight * 0.62 / baseH), 1);
+      wrap.style.transform = "scale(" + (1 + (big - 1) * (1 - p)) + ")"; // big at top, 1 once shrunk
+      const hp = Math.min(Math.max((p - 0.6) / 0.4, 0), 1);
+      headline.style.opacity = hp;
+      headline.style.transform = "translateY(" + (1 - hp) * 24 + "px)";
+    }
+
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      track.style.height = "100vh";
+      headline.style.opacity = 1;
+      return;
+    }
+
+    function progress() {
+      const scrollable = track.offsetHeight - innerHeight;
+      if (scrollable <= 0) return 0;
+      const raw = (scrollY - track.offsetTop) / scrollable;
+      return Math.min(Math.max(raw / 0.8, 0), 1); // finish the shrink at 80% of the track, brief hold after
+    }
+    function render() { apply(progress()); }
+    let ticking = false;
+    addEventListener("scroll", function () {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(function () { render(); ticking = false; });
+    }, { passive: true });
+    addEventListener("resize", render);
+    if (window.ResizeObserver) new ResizeObserver(render).observe(wrap);
+    addEventListener("load", render);
+    render();
+
+    // --- stardust: particles streak inward from deep space and coalesce into the logo ---
+    const boom = document.getElementById("boom");
+    if (boom && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const N = 34;
+      for (let i = 0; i < N; i++) {
+        const dot = document.createElement("span");
+        dot.className = "boom-particle";
+        const ang = (i / N) * Math.PI * 2 + Math.random() * 0.5;
+        const dist = 220 + Math.random() * 320;                    // start far out, converge to center
+        dot.style.setProperty("--tx", (Math.cos(ang) * dist).toFixed(1) + "px");
+        dot.style.setProperty("--ty", (Math.sin(ang) * dist).toFixed(1) + "px");
+        const s = 0.5 + Math.random();
+        dot.style.width = dot.style.height = (4 * s).toFixed(1) + "px";
+        dot.style.animationDelay = (0.45 + Math.random() * 0.5).toFixed(2) + "s"; // staggered arrival
+        boom.appendChild(dot);
+      }
+    }
+  })();
+</script>
+
+<script>
+  // company logos: member-built ventures + where members work
+  const VENTURES = ["aia","bored-ape-racket","chores","flexform","founders-fair","huzzsco","noal","rackramp","pepti-ai"];
+  const WORKED = ["cintrifuse","cleveland-clinic","cursor","gallagher","medtronic","pieces","spirair"];
+  const cloudChip = n => `<div class="cloud-chip" style="--dur:${(5+Math.random()*3).toFixed(2)}s;--delay:${(Math.random()*4).toFixed(2)}s"><img src="assets/logos/${n}.png" alt=""/></div>`;
+  document.getElementById("venturesCloud").innerHTML = VENTURES.map(cloudChip).join("");
+  document.getElementById("worksCloud").innerHTML = WORKED.map(cloudChip).join("");
+
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+  document.querySelectorAll("[data-count]").forEach(el => {
+    const target = parseInt(el.dataset.count, 10), pre = el.dataset.prefix || "", suf = el.dataset.suffix || "";
+    const once = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return; once.disconnect();
+      const t0 = performance.now(), dur = 1300;
+      const tick = t => { const p = Math.min((t - t0) / dur, 1); el.textContent = pre + Math.floor((1 - Math.pow(1 - p, 3)) * target) + suf; if (p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick);
+    }), { threshold: 0.5 });
+    once.observe(el);
+  });
+</script>
+<script>
+  /* mobile menu toggle */
+  (function(){
+    const t=document.getElementById("navToggle"), m=document.getElementById("mobileMenu"),
+          io=document.getElementById("navIconOpen"), ic=document.getElementById("navIconClose");
+    if(!t||!m) return;
+    function set(open){ m.classList.toggle("hidden",!open); t.setAttribute("aria-expanded",open); io.classList.toggle("hidden",open); ic.classList.toggle("hidden",!open); }
+    t.addEventListener("click",()=>set(m.classList.contains("hidden")));
+    m.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>set(false)));
+  })();
+</script>
+</body>
+</html>
