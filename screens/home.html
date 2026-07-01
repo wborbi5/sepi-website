@@ -7,17 +7,20 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = { theme: { extend: {
-    colors: { phoenix: "#2563EB", "phoenix-bright": "#3B82F6", ink: "#04060f" },
-    fontFamily: { sans: ["Inter","sans-serif"], mono: ["JetBrains Mono","monospace"] },
+    colors: { phoenix: "#2C4A73", "phoenix-bright": "#1b2a8c", ink: "#101828", midnight: "#101828", navy: "#1F3A5F", slateblue: "#516B84", cloud: "#F8FAFC", mist: "#A7B6C5", steel: "#6B7280", coolgray: "#D1D5DB", stone: "#E5E7EB", charcoal: "#374151", oxford: "#2C4A73", powder: "#BFCFDD", graphite: "#4B5563", pop: "#1b2a8c" },
+    fontFamily: { sans: ["Karla","sans-serif"], display: ["Fraunces","serif"] },
   } } };
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Karla:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet"/>
 <style>
   html { scroll-behavior: smooth; }
-  body { font-family: "Inter", sans-serif; -webkit-font-smoothing: antialiased; color: #fff; background: #04060f; }
-  .label { font-family: "JetBrains Mono", monospace; letter-spacing: 0.22em; text-transform: uppercase; }
-  ::selection { background: #2563EB; color: #fff; }
-  .hairline { border-color: rgba(255,255,255,0.10); }
+  body { font-family: "Karla", sans-serif; -webkit-font-smoothing: antialiased; color: #101828; background: #F8FAFC; }
+  /* Brand type: Fraunces 600 for headlines + logo lockups; Karla carries everything else */
+  h1, h2, h3, h4, .brand-lockup { font-family: "Fraunces", serif !important; font-weight: 600 !important; }
+  .label { font-family: "Karla", sans-serif; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; }
+  ::selection { background: #1F3A5F; color: #fff; }
+  .hairline { border-color: #D1D5DB; }
+  footer .hairline, footer.hairline { border-color: rgba(255,255,255,0.14); }
 
   /* HERO: medal photo as full background */
   .hero { background-image: url("assets/hero-badge@3x.jpg"); background-size: cover; background-position: center; }
@@ -27,50 +30,39 @@
       linear-gradient(to bottom, rgba(4,6,15,.35) 0%, rgba(4,6,15,0) 28%, rgba(4,6,15,0) 62%, #04060f 100%);
   }
 
-  /* COSMIC: blue space + auras + stars, blends through every section after the hero */
+  /* COSMIC: light brand canvas — Cloud White with faint navy tints through every section after the hero */
   .cosmic {
     position: relative;
-    background-color: #04060f;
+    background-color: #F8FAFC;
     background-image:
-      linear-gradient(to bottom, #04060f 0%, rgba(4,6,15,0) 14%),
-      radial-gradient(55% 45% at 18% 5%,  rgba(37,99,235,0.30), transparent 70%),
-      radial-gradient(45% 45% at 88% 16%, rgba(59,130,246,0.20), transparent 70%),
-      radial-gradient(50% 40% at 8% 42%,  rgba(37,99,235,0.18), transparent 70%),
-      radial-gradient(60% 45% at 90% 60%, rgba(59,130,246,0.18), transparent 72%),
-      radial-gradient(55% 40% at 25% 80%, rgba(37,99,235,0.16), transparent 72%),
-      radial-gradient(70% 50% at 50% 100%, rgba(37,99,235,0.20), transparent 72%);
+      radial-gradient(55% 45% at 18% 5%,  rgba(31,58,95,0.06), transparent 70%),
+      radial-gradient(45% 45% at 88% 16%, rgba(81,107,132,0.05), transparent 70%),
+      radial-gradient(50% 40% at 8% 42%,  rgba(31,58,95,0.05), transparent 70%),
+      radial-gradient(60% 45% at 90% 60%, rgba(81,107,132,0.05), transparent 72%),
+      radial-gradient(55% 40% at 25% 80%, rgba(31,58,95,0.04), transparent 72%);
   }
-  .cosmic::before {
-    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
-    background-image: url("assets/stars-far.png"), url("assets/stars-near.png");
-    background-repeat: repeat; background-size: 600px 600px, 600px 600px;
-    animation: twinkle 7s ease-in-out infinite;
-  }
-  @keyframes twinkle { 0%,100% { opacity: .55; } 50% { opacity: .95; } }
   .cosmic > * { position: relative; z-index: 1; }
 
   /* logo marquee — uniform white chips */
   .marq { overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent); }
   .marq-track { display: flex; align-items: center; gap: 22px; width: max-content; animation: marq 45s linear infinite; }
   @keyframes marq { to { transform: translateX(-50%); } }
-  .chip { display: inline-flex; align-items: center; justify-content: center; height: 60px; padding: 0 22px; border-radius: 12px; background: #fff; flex: none; transition: transform .3s ease; }
+  .chip { display: inline-flex; align-items: center; justify-content: center; height: 60px; padding: 0 22px; border-radius: 12px; background: #fff; border: 1px solid #E5E7EB; flex: none; transition: transform .3s ease; }
   .chip:hover { transform: translateY(-2px); }
   .chip img { height: 28px; width: auto; max-width: 200px; object-fit: contain; display: block; }
   .chip.full { width: 100%; }
 
-  .glow-btn { box-shadow: 0 0 0 1px rgba(59,130,246,.55), 0 0 34px rgba(37,99,235,.55); animation: pulse 3s ease-in-out infinite; }
-  .glow-btn:hover { box-shadow: 0 0 0 1px rgba(59,130,246,.9), 0 0 60px rgba(37,99,235,.85); transform: translateY(-1px); }
-  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 1px rgba(59,130,246,.45), 0 0 26px rgba(37,99,235,.45); } 50% { box-shadow: 0 0 0 1px rgba(59,130,246,.7), 0 0 46px rgba(37,99,235,.7); } }
+  .glow-btn { box-shadow: 0 10px 25px rgba(31,58,95,.25); }
+  .glow-btn:hover { box-shadow: 0 14px 32px rgba(31,58,95,.35); transform: translateY(-1px); }
 
   .reveal { opacity: 0; transform: translateY(26px); transition: all .8s cubic-bezier(.22,1,.36,1); }
   .reveal.in { opacity: 1; transform: translateY(0); }
 
-  /* "ventures" / "where we work" — space-y title with a blue aura glow */
-  .space-title { font-family: "Orbitron", sans-serif; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #dbeafe;
-    text-shadow: 0 0 18px rgba(59,130,246,.85), 0 0 44px rgba(37,99,235,.55), 0 0 90px rgba(37,99,235,.3); }
-  /* frosted-white "cloud" panel holding company logos (blue aura around it) */
-  .cloud { position: relative; background: rgba(255,255,255,0.93); border: 1px solid rgba(255,255,255,0.55); border-radius: 32px;
-    padding: 26px; backdrop-filter: blur(6px); box-shadow: 0 0 70px rgba(37,99,235,0.32), 0 24px 60px rgba(0,0,0,0.45); }
+  /* "ventures" / "where we work" — section title in Executive Navy */
+  .space-title { font-family: "Fraunces", serif; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #1F3A5F; }
+  /* white "cloud" panel holding company logos */
+  .cloud { position: relative; background: #FFFFFF; border: 1px solid #D1D5DB; border-radius: 32px;
+    padding: 26px; box-shadow: 0 20px 50px rgba(16,24,40,0.10); }
   /* floating logos — natural colour on the white panel, light up to full colour + pop on hover */
   .cloud-logos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 22px 30px; }
   .cloud-chip { display: inline-flex; animation: floatBob var(--dur, 6s) ease-in-out var(--delay, 0s) infinite; }
@@ -129,8 +121,8 @@
   #topnav #navWordmark { opacity:1; max-width:16rem; overflow:hidden;
     transition: opacity .35s ease, max-width .4s ease, margin .4s ease; text-shadow:0 2px 16px rgba(4,6,15,.7); }
   #navLinks a { font-size:.8rem; transition: font-size .4s ease; }
-  #topnav.scrolled { background: rgba(4,6,15,0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    border-color: rgba(255,255,255,0.1); box-shadow:0 10px 30px rgba(0,0,0,.3); }
+  #topnav.scrolled { background: rgba(16,24,40,0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-color: rgba(255,255,255,0.1); box-shadow:0 10px 30px rgba(16,24,40,.25); }
   #topnav.scrolled #navbar { height:5rem; }
   #topnav.scrolled #navLogo { height:2.25rem; }
   #topnav.scrolled #navWordmark { opacity:0; max-width:0; margin-left:-0.75rem; text-shadow:none; }
@@ -151,7 +143,7 @@
   <div id="navbar" class="relative max-w-6xl mx-auto px-6 flex items-center justify-between">
     <a href="home.html" class="flex items-center gap-3 nav-fade" style="--d:0s" aria-label="Sigma Eta Pi — Home">
       <img src="assets/emblem-white.png" alt="Sigma Eta Pi phoenix" id="navLogo" class="w-auto"/>
-      <span id="navWordmark" class="font-black leading-[1.02] text-white text-2xl whitespace-nowrap">Sigma<br/>Eta&nbsp;Pi™</span>
+      <span id="navWordmark" class="brand-lockup font-black leading-[1.02] text-white text-2xl whitespace-nowrap">Sigma<br/>Eta&nbsp;Pi™</span>
     </a>
     <div id="navLinks" class="hidden md:flex items-center gap-7">
       <a href="community.html" class="nav-fade label text-white/70 hover:text-white transition-colors" style="--d:.12s">About</a>
@@ -164,11 +156,11 @@
       <svg id="navIconClose" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6 hidden"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
     </button>
   </div>
-  <div id="mobileMenu" class="md:hidden hidden mx-4 mb-3 rounded-2xl border border-white/10 bg-[#04060f]/95 backdrop-blur-xl overflow-hidden">
+  <div id="mobileMenu" class="md:hidden hidden mx-4 mb-3 rounded-2xl border border-white/10 bg-[#101828]/95 backdrop-blur-xl overflow-hidden">
     <a href="community.html" class="block label text-sm px-6 py-4 text-white/80 hover:bg-white/5 border-b border-white/5">About</a>
     <a href="roster.html" class="block label text-sm px-6 py-4 text-white/80 hover:bg-white/5 border-b border-white/5">People</a>
     <a href="program.html" class="block label text-sm px-6 py-4 text-white/80 hover:bg-white/5 border-b border-white/5">Growth</a>
-    <a href="recruitment.html" class="block label text-sm px-6 py-4 text-phoenix-bright hover:bg-white/5">Recruitment</a>
+    <a href="recruitment.html" class="block label text-sm px-6 py-4 text-powder hover:bg-white/5">Recruitment</a>
   </div>
 </nav>
 
@@ -180,7 +172,7 @@
     <div id="heroStars" class="absolute inset-0"></div>
     <div id="heroVignette" class="absolute inset-0"></div>
     <!-- fade the hero's bottom to the page color so it blends seamlessly into the cosmic section -->
-    <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-b from-transparent to-[#04060f]"></div>
+    <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-b from-transparent to-[#F8FAFC]"></div>
 
     <div class="relative h-full flex flex-col items-center justify-center text-center px-6">
       <div id="heroImgWrap" class="relative will-change-transform" style="transform-origin:center center;">
@@ -189,7 +181,7 @@
         <div id="boom" class="pointer-events-none absolute left-1/2 top-1/2"></div>
       </div>
       <h1 id="heroHeadline" class="mt-8 text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.02] text-white opacity-0 will-change-transform">
-        Miami's Home For <span class="text-phoenix-bright">Innovators</span>.
+        Miami's Home For <span class="text-powder">Innovators</span>.
       </h1>
     </div>
   </div>
@@ -201,9 +193,9 @@
   <!-- PIECE 1 — TAKE A CHANCE (text left, Ventures cloud right) -->
   <section class="max-w-6xl mx-auto px-6 pt-32 pb-28 grid lg:grid-cols-2 gap-14 items-center">
     <div class="reveal">
-      <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Take a<br/><span class="text-phoenix-bright">chance</span></h2>
-      <p class="mt-7 text-lg text-white/65 leading-relaxed max-w-lg">
-        When you're a student, shots on goal is a more valuable metric than goals scored — so we challenge you to grow your skills, connect with professionals, and gain experience through action, <span class="text-white">not theory</span>. We provide the resources, mentorship, and a community of like-minded builders who push you to be better.
+      <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Take a<br/><span class="text-pop">chance</span></h2>
+      <p class="mt-7 text-lg text-charcoal leading-relaxed max-w-lg">
+        When you're a student, shots on goal is a more valuable metric than goals scored — so we challenge you to grow your skills, connect with professionals, and gain experience through action, <span class="text-midnight font-semibold">not theory</span>. We provide the resources, mentorship, and a community of like-minded builders who push you to be better.
       </p>
     </div>
     <div class="reveal flex flex-col items-center">
@@ -218,27 +210,27 @@
   <section class="max-w-6xl mx-auto px-6 py-28 grid lg:grid-cols-2 gap-14 items-center">
     <div class="reveal order-2 lg:order-1 relative mx-auto w-full max-w-[540px] h-[470px] sm:h-[540px]">
       <!-- night-glow squiggles, lines, sparkle stars, brackets & spirals -->
-      <svg class="absolute inset-0 w-full h-full pointer-events-none overflow-visible" viewBox="0 0 540 540" fill="none" aria-hidden="true" style="filter:drop-shadow(0 0 6px rgba(96,165,250,.8));">
-        <path d="M26,52 q14,-18 28,0 t28,0 t28,0 t28,0" stroke="#93c5fd" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M505,46 C448,30 405,46 384,78" stroke="#7cc0ff" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M384,78 l18,-7 M384,78 l9,18" stroke="#7cc0ff" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M500,104 C503,120 510,127 526,130 C510,133 503,140 500,156 C497,140 490,133 474,130 C490,127 497,120 500,104 Z" fill="#bfdbfe"/>
-        <path d="M48,300 C50,310 55,315 65,317 C55,319 50,324 48,334 C46,324 41,319 31,317 C41,315 46,310 48,300 Z" fill="#93c5fd"/>
-        <path d="M120,150 h-26 v26 M420,150 h26 v26 M120,498 h-26 v-26 M420,498 h26 v-26" stroke="#60a5fa" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M470,470 c0,-14 -20,-16 -24,-3 c-5,16 18,22 28,8 c11,-15 -8,-34 -27,-28" stroke="#7cc0ff" stroke-width="2.4" stroke-linecap="round"/>
-        <path d="M150,524 q18,-14 36,0 t36,0 t36,0" stroke="#93c5fd" stroke-width="2.4" stroke-linecap="round"/>
-        <circle cx="70" cy="120" r="2.6" fill="#bfdbfe"/>
-        <circle cx="500" cy="360" r="2.6" fill="#93c5fd"/>
-        <circle cx="60" cy="470" r="2.2" fill="#bfdbfe"/>
+      <svg class="absolute inset-0 w-full h-full pointer-events-none overflow-visible" viewBox="0 0 540 540" fill="none" aria-hidden="true">
+        <path d="M26,52 q14,-18 28,0 t28,0 t28,0 t28,0" stroke="#A7B6C5" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M505,46 C448,30 405,46 384,78" stroke="#516B84" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M384,78 l18,-7 M384,78 l9,18" stroke="#516B84" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M500,104 C503,120 510,127 526,130 C510,133 503,140 500,156 C497,140 490,133 474,130 C490,127 497,120 500,104 Z" fill="#A7B6C5"/>
+        <path d="M48,300 C50,310 55,315 65,317 C55,319 50,324 48,334 C46,324 41,319 31,317 C41,315 46,310 48,300 Z" fill="#BFCFDD"/>
+        <path d="M120,150 h-26 v26 M420,150 h26 v26 M120,498 h-26 v-26 M420,498 h26 v-26" stroke="#516B84" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M470,470 c0,-14 -20,-16 -24,-3 c-5,16 18,22 28,8 c11,-15 -8,-34 -27,-28" stroke="#A7B6C5" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M150,524 q18,-14 36,0 t36,0 t36,0" stroke="#A7B6C5" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="70" cy="120" r="2.6" fill="#516B84"/>
+        <circle cx="500" cy="360" r="2.6" fill="#A7B6C5"/>
+        <circle cx="60" cy="470" r="2.2" fill="#516B84"/>
       </svg>
-      <img src="assets/community/20260511_181827_4D0F8C.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-phoenix/40 transition-transform duration-300 hover:z-10" style="left:3%;top:24px;width:56%;height:190px;transform:rotate(-3deg);z-index:2;box-shadow:0 0 30px rgba(37,99,235,.42);"/>
-      <img src="assets/community/20260422_074954_4E1929.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-phoenix/40 transition-transform duration-300 hover:z-10" style="right:2%;top:64px;width:42%;height:150px;transform:rotate(4deg);z-index:3;box-shadow:0 0 30px rgba(37,99,235,.42);"/>
-      <img src="assets/community/20260429_214338_42EDFE.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-phoenix/40 transition-transform duration-300 hover:z-10" style="left:4%;top:228px;width:44%;height:150px;transform:rotate(-5deg);z-index:4;box-shadow:0 0 30px rgba(37,99,235,.42);"/>
-      <img src="assets/community/20260511_181827_4A2EBF.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-phoenix/40 transition-transform duration-300 hover:z-10" style="right:3%;bottom:18px;width:60%;height:185px;transform:rotate(2deg);z-index:3;box-shadow:0 0 30px rgba(37,99,235,.42);"/>
+      <img src="assets/community/20260511_181827_4D0F8C.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-white transition-transform duration-300 hover:z-10" style="left:3%;top:24px;width:56%;height:190px;transform:rotate(-3deg);z-index:2;box-shadow:0 12px 30px rgba(16,24,40,.18);"/>
+      <img src="assets/community/20260422_074954_4E1929.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-white transition-transform duration-300 hover:z-10" style="right:2%;top:64px;width:42%;height:150px;transform:rotate(4deg);z-index:3;box-shadow:0 12px 30px rgba(16,24,40,.18);"/>
+      <img src="assets/community/20260429_214338_42EDFE.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-white transition-transform duration-300 hover:z-10" style="left:4%;top:228px;width:44%;height:150px;transform:rotate(-5deg);z-index:4;box-shadow:0 12px 30px rgba(16,24,40,.18);"/>
+      <img src="assets/community/20260511_181827_4A2EBF.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-white transition-transform duration-300 hover:z-10" style="right:3%;bottom:18px;width:60%;height:185px;transform:rotate(2deg);z-index:3;box-shadow:0 12px 30px rgba(16,24,40,.18);"/>
     </div>
     <div class="reveal order-1 lg:order-2">
-      <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Find your<br/><span class="text-phoenix-bright">community</span></h2>
-      <p class="mt-7 text-lg text-white/65 leading-relaxed max-w-lg">
+      <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Find your<br/><span class="text-pop">community</span></h2>
+      <p class="mt-7 text-lg text-charcoal leading-relaxed max-w-lg">
         We pull together Miami's most driven builders and creatives to form real friendships that last long after graduation. Members push each other, share what they're learning, and make entrepreneurship feel concrete. With small recruitment classes, we ensure deep connection between members and purposeful relationships.
       </p>
     </div>
@@ -247,8 +239,8 @@
   <!-- PIECE 3 — GROW YOUR CAREER (text left) -->
   <section class="max-w-6xl mx-auto px-6 py-28 grid lg:grid-cols-2 gap-14 items-center">
     <div class="reveal">
-      <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Grow your<br/><span class="text-phoenix-bright">career</span></h2>
-      <p class="mt-7 text-lg text-white/65 leading-relaxed max-w-lg">
+      <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Grow your<br/><span class="text-pop">career</span></h2>
+      <p class="mt-7 text-lg text-charcoal leading-relaxed max-w-lg">
         Realize your career ambitions and gain an unfair advantage through your skills, network, and experience. By offering opportunities like internships and co-ops as soon as you step foot on campus, we aim to gain as much experience as possible.
       </p>
     </div>
@@ -263,14 +255,14 @@
   <!-- SEE OUR SUCCESS -->
   <section class="py-28 px-6 border-t hairline">
     <div class="max-w-5xl mx-auto text-center">
-      <h2 class="reveal text-4xl md:text-6xl font-black tracking-tight">See our <span class="text-phoenix-bright">Success</span></h2>
+      <h2 class="reveal text-4xl md:text-6xl font-black tracking-tight">See our <span class="text-pop">Success</span></h2>
 
       <!-- numbers -->
-      <div class="reveal mt-8 border hairline rounded-2xl py-12 px-8 grid grid-cols-2 lg:grid-cols-4 gap-y-10 bg-white/[0.03] backdrop-blur-sm">
-        <div><div class="text-5xl md:text-6xl font-black text-white"><span data-count="17">0</span></div><p class="label text-[10px] text-white/45 mt-3">Ventures started</p></div>
-        <div><div class="text-5xl md:text-6xl font-black text-phoenix-bright"><span data-count="92" data-prefix="$" data-suffix="k+">0</span></div><p class="label text-[10px] text-white/45 mt-3">Pitch competition wins</p></div>
-        <div><div class="text-5xl md:text-6xl font-black text-phoenix-bright"><span data-count="95" data-prefix="$" data-suffix="k+">0</span></div><p class="label text-[10px] text-white/45 mt-3">Raised for ventures</p></div>
-        <div><div class="text-5xl md:text-6xl font-black text-phoenix-bright"><span data-count="310" data-prefix="$" data-suffix="k+">0</span></div><p class="label text-[10px] text-white/45 mt-3">Total revenue</p></div>
+      <div class="reveal mt-8 border hairline rounded-2xl py-12 px-8 grid grid-cols-2 lg:grid-cols-4 gap-y-10 bg-white shadow-[0_20px_50px_rgba(16,24,40,0.08)]">
+        <div><div class="text-5xl md:text-6xl font-black text-midnight"><span data-count="17">0</span></div><p class="label text-[10px] text-steel mt-3">Ventures started</p></div>
+        <div><div class="text-5xl md:text-6xl font-black text-pop"><span data-count="92" data-prefix="$" data-suffix="k+">0</span></div><p class="label text-[10px] text-steel mt-3">Pitch competition wins</p></div>
+        <div><div class="text-5xl md:text-6xl font-black text-pop"><span data-count="95" data-prefix="$" data-suffix="k+">0</span></div><p class="label text-[10px] text-steel mt-3">Raised for ventures</p></div>
+        <div><div class="text-5xl md:text-6xl font-black text-pop"><span data-count="310" data-prefix="$" data-suffix="k+">0</span></div><p class="label text-[10px] text-steel mt-3">Total revenue</p></div>
       </div>
 
       <div class="reveal mt-16">
@@ -280,22 +272,22 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="border-t hairline px-6 py-16">
+  <footer class="border-t hairline bg-midnight px-6 py-16">
     <!-- top row: phoenix lockup · socials -->
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
       <a href="home.html" class="flex items-center gap-5" aria-label="Sigma Eta Pi home">
         <img src="assets/emblem-white.png" alt="Sigma Eta Pi phoenix" class="h-16 w-auto"/>
         <span class="leading-none">
-          <span class="block text-3xl font-black tracking-tight text-white">Sigma Eta Pi</span>
+          <span class="brand-lockup block text-3xl font-black tracking-tight text-white">Sigma Eta Pi</span>
           <span class="block mt-1 text-xl font-medium text-white/45">@ Miami University</span>
         </span>
       </a>
 
       <div class="flex items-center justify-center gap-4">
-        <a href="https://www.instagram.com/sigmaetapimu/" target="_blank" rel="noopener" aria-label="Instagram" class="w-11 h-11 border hairline rounded-full flex items-center justify-center hover:border-phoenix hover:text-phoenix-bright transition-colors">
+        <a href="https://www.instagram.com/sigmaetapimu/" target="_blank" rel="noopener" aria-label="Instagram" class="w-11 h-11 border hairline rounded-full flex items-center justify-center text-white/80 hover:border-powder hover:text-powder transition-colors">
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.67 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63 19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.41-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg>
         </a>
-        <a href="https://www.linkedin.com/company/sigma-eta-pi-miami-university/" target="_blank" rel="noopener" aria-label="LinkedIn" class="w-11 h-11 border hairline rounded-full flex items-center justify-center hover:border-phoenix hover:text-phoenix-bright transition-colors">
+        <a href="https://www.linkedin.com/company/sigma-eta-pi-miami-university/" target="_blank" rel="noopener" aria-label="LinkedIn" class="w-11 h-11 border hairline rounded-full flex items-center justify-center text-white/80 hover:border-powder hover:text-powder transition-colors">
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
         </a>
       </div>

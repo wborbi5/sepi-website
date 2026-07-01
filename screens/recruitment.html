@@ -5,7 +5,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Recruitment | Sigma Eta Pi</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&amp;family=Karla:ital,wght@0,400..800;1,400..800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
@@ -19,73 +19,69 @@
             background-size: 24px 24px;
         }
         .electric-glow:hover {
-            box-shadow: 0 0 0 1px #2563EB;
+            box-shadow: 0 0 0 1px #1F3A5F;
         }
         .timeline-line {
-            background: linear-gradient(to bottom, #2563EB 0%, #2563EB 50%, #222225 100%);
+            background: linear-gradient(to bottom, #1F3A5F 0%, #1F3A5F 50%, #D1D5DB 100%);
         }
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0E0E0F; }
-        ::-webkit-scrollbar-thumb { background: #222225; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #2563EB; }
-        /* Inter trial: keep display/headline type heavy (Playfair previously carried the weight) */
-        h1, h2, h3, h4, .font-display-lg, .font-headline-md { font-weight: 900; letter-spacing: -0.02em; }
+        ::-webkit-scrollbar-track { background: #F8FAFC; }
+        ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #516B84; }
+        /* Brand type: Fraunces 600 for headlines + logo lockups; Karla carries everything else */
+        h1, h2, h3, h4, .font-display-lg, .font-headline-md, .brand-lockup { font-family: "Fraunces", serif !important; font-weight: 600 !important; letter-spacing: -0.02em; }
         .hairline { border-color: rgba(255,255,255,0.10); }
-        .label { font-family: "JetBrains Mono", monospace; letter-spacing: 0.2em; text-transform: uppercase; }
-        /* icy space-blue glow + starfield (matches the home page) */
-        .node-glow { box-shadow: 0 0 0 4px rgba(37,99,235,0.12), 0 0 20px rgba(59,130,246,0.55); }
+        .label { font-family: "Karla", sans-serif; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; }
+        /* soft navy accents on the light brand canvas */
+        .node-glow { box-shadow: 0 0 0 4px rgba(31,58,95,0.12), 0 8px 20px rgba(31,58,95,0.25); }
         .aura-card { transition: box-shadow .3s ease, border-color .3s ease, transform .3s ease; }
-        .aura-card:hover { border-color: rgba(59,130,246,0.55); box-shadow: 0 0 0 1px rgba(59,130,246,0.45), 0 0 44px rgba(37,99,235,0.4); transform: translateY(-2px); }
-        .aura-btn { box-shadow: 0 0 0 1px rgba(59,130,246,.55), 0 0 34px rgba(37,99,235,.55); }
-        .aura-btn:hover { box-shadow: 0 0 0 1px rgba(59,130,246,.95), 0 0 55px rgba(37,99,235,.85); }
+        .aura-card:hover { border-color: rgba(81,107,132,0.55); box-shadow: 0 0 0 1px rgba(81,107,132,0.45), 0 16px 44px rgba(16,24,40,0.15); transform: translateY(-2px); }
+        .aura-btn { box-shadow: 0 10px 25px rgba(31,58,95,.25); }
+        .aura-btn:hover { box-shadow: 0 14px 32px rgba(31,58,95,.35); }
         .space-bg { position: relative; }
         .space-bg::before { content:""; position:absolute; inset:0; pointer-events:none; z-index:0;
             background:
-                radial-gradient(50% 40% at 18% 8%, rgba(37,99,235,0.20), transparent 70%),
-                radial-gradient(45% 40% at 85% 28%, rgba(59,130,246,0.15), transparent 70%),
-                radial-gradient(60% 45% at 50% 92%, rgba(37,99,235,0.17), transparent 72%); }
-        .space-bg::after { content:""; position:absolute; inset:0; pointer-events:none; z-index:0;
-            background-image:url("assets/stars-far.png"); background-repeat:repeat; background-size:600px 600px; opacity:.22; }
+                radial-gradient(50% 40% at 18% 8%, rgba(31,58,95,0.06), transparent 70%),
+                radial-gradient(45% 40% at 85% 28%, rgba(81,107,132,0.05), transparent 70%),
+                radial-gradient(60% 45% at 50% 92%, rgba(31,58,95,0.05), transparent 72%); }
         .space-bg > * { position: relative; z-index: 1; }
-        /* full-page blue starfield background (UCLA-style flat backdrop, but blue + stars) */
-        body { background-color: #04060f !important;
+        /* full-page Cloud White backdrop with faint navy tints */
+        body { background-color: #F8FAFC !important;
             background-image:
-                url("assets/stars-far.png"), url("assets/stars-near.png"),
-                radial-gradient(50% 38% at 18% 8%, rgba(37,99,235,0.18), transparent 70%),
-                radial-gradient(45% 38% at 85% 22%, rgba(59,130,246,0.14), transparent 70%),
-                radial-gradient(55% 45% at 50% 96%, rgba(37,99,235,0.16), transparent 72%);
-            background-repeat: repeat, repeat, no-repeat, no-repeat, no-repeat;
-            background-size: 600px 600px, 600px 600px, auto, auto, auto;
+                radial-gradient(50% 38% at 18% 8%, rgba(31,58,95,0.05), transparent 70%),
+                radial-gradient(45% 38% at 85% 22%, rgba(81,107,132,0.04), transparent 70%),
+                radial-gradient(55% 45% at 50% 96%, rgba(31,58,95,0.05), transparent 72%);
+            background-repeat: no-repeat, no-repeat, no-repeat;
             background-attachment: fixed; }
-        /* hero supernova flare (icy blue) + phoenix lockup */
+        /* hero supernova flare (powder-navy) + phoenix lockup */
         .hero-flare { position:absolute; left:50%; top:46%; transform:translate(-50%,-50%); width:min(96vw,1200px); height:560px; z-index:0; pointer-events:none; }
         .hero-flare::before { content:""; position:absolute; inset:0;
-            background: radial-gradient(ellipse 42% 46% at 50% 50%, rgba(125,180,255,0.55), rgba(37,99,235,0.22) 42%, transparent 70%); filter: blur(18px); }
+            background: radial-gradient(ellipse 42% 46% at 50% 50%, rgba(191,207,221,0.5), rgba(81,107,132,0.28) 42%, transparent 70%); filter: blur(18px); }
         .hero-flare::after { content:""; position:absolute; left:0; right:0; top:50%; height:560px; transform:translateY(-50%);
             background:
-                linear-gradient(90deg, transparent 6%, rgba(190,222,255,0.9) 49%, #ffffff 50%, rgba(190,222,255,0.9) 51%, transparent 94%) center/100% 2px no-repeat,
-                linear-gradient(112deg, transparent 47%, rgba(150,195,255,0.5) 50%, transparent 53%) center/100% 100% no-repeat,
-                linear-gradient(68deg, transparent 47%, rgba(150,195,255,0.5) 50%, transparent 53%) center/100% 100% no-repeat;
+                linear-gradient(90deg, transparent 6%, rgba(191,207,221,0.9) 49%, #ffffff 50%, rgba(191,207,221,0.9) 51%, transparent 94%) center/100% 2px no-repeat,
+                linear-gradient(112deg, transparent 47%, rgba(167,182,197,0.5) 50%, transparent 53%) center/100% 100% no-repeat,
+                linear-gradient(68deg, transparent 47%, rgba(167,182,197,0.5) 50%, transparent 53%) center/100% 100% no-repeat;
             filter: blur(1.2px); }
         @media (prefers-reduced-motion: no-preference) { .hero-flare { animation: flarePulse 6s ease-in-out infinite; } @keyframes flarePulse { 0%,100% { opacity:.85; } 50% { opacity:1; } } }
         .season { font-style: italic; font-weight: 600; color: rgba(235,242,255,0.9); }
-        .apply-pill { background:#0a0f1e; color:#fff; border:1px solid rgba(255,255,255,0.14); border-radius:9999px; box-shadow: 0 0 42px rgba(37,99,235,0.55); transition: all .3s ease; }
-        .apply-pill:hover { box-shadow: 0 0 64px rgba(37,99,235,0.85); border-color: rgba(59,130,246,0.6); transform: translateY(-1px); }
+        .apply-pill { background:#2C4A73; color:#fff; border:1px solid rgba(255,255,255,0.14); border-radius:9999px; box-shadow: 0 12px 30px rgba(16,24,40,0.45); transition: all .3s ease; }
+        .apply-pill:hover { box-shadow: 0 16px 40px rgba(16,24,40,0.6); border-color: rgba(191,207,221,0.6); transform: translateY(-1px); }
         /* dated timeline */
-        .tl-date { font-weight:800; color:rgba(255,255,255,0.85); font-variant-numeric: tabular-nums; line-height:1; }
-        .tl-time { font-style:italic; font-weight:700; color:#fff; }
-        .tl-title { font-weight:800; color:#fff; letter-spacing:-0.01em; }
-        .tl-meta { color:rgba(255,255,255,0.5); }
+        .tl-date { font-weight:800; color:#101828; font-variant-numeric: tabular-nums; line-height:1; }
+        .tl-time { font-style:italic; font-weight:700; color:#374151; }
+        .tl-title { font-weight:800; color:#101828; letter-spacing:-0.01em; }
+        .tl-meta { color:#6B7280; }
         .flare-circle { border-radius:50%; flex:none; position:relative; overflow:hidden;
-            background: radial-gradient(circle at 50% 42%, rgba(120,170,255,0.5), rgba(16,26,64,0.96) 60%, #04060f 100%);
-            box-shadow: inset 0 0 26px rgba(0,0,0,0.7), 0 0 26px rgba(37,99,235,0.3); }
+            background: radial-gradient(circle at 50% 42%, rgba(167,182,197,0.5), rgba(31,58,95,0.96) 60%, #101828 100%);
+            box-shadow: inset 0 0 26px rgba(16,24,40,0.7), 0 12px 26px rgba(16,24,40,0.2); }
         .flare-circle::before { content:""; position:absolute; inset:-30%;
-            background: linear-gradient(var(--ang,120deg), transparent 45%, rgba(170,205,255,0.85) 49%, #fff 50%, rgba(170,205,255,0.85) 51%, transparent 55%);
+            background: linear-gradient(var(--ang,120deg), transparent 45%, rgba(191,207,221,0.85) 49%, #fff 50%, rgba(191,207,221,0.85) 51%, transparent 55%);
             filter: blur(1px); opacity:.85; }
         /* hero readability + smooth transition down into the schedule */
         .hero-scrim { position:absolute; inset:0; z-index:1; pointer-events:none;
-            background: radial-gradient(58% 30% at 50% 60%, rgba(4,6,15,0.5), transparent 72%); }
-        .hero-readable { text-shadow: 0 2px 22px rgba(4,6,15,0.9), 0 0 10px rgba(4,6,15,0.65); }
+            background: radial-gradient(58% 30% at 50% 60%, rgba(16,24,40,0.5), transparent 72%); }
+        .hero-readable { text-shadow: 0 2px 22px rgba(16,24,40,0.9), 0 0 10px rgba(16,24,40,0.65); }
         /* scroll-reveal transition for the schedule */
         .reveal { opacity:0; transform: translateY(34px); transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
         .reveal.in { opacity:1; transform:none; }
@@ -95,10 +91,10 @@
         #topnav #navbar { height:7.5rem; transition: height .4s ease; }
         #topnav #navLogo { height:3.5rem; transition: height .4s ease; }
         #topnav #navWordmark { opacity:1; max-width:16rem; overflow:hidden;
-            transition: opacity .35s ease, max-width .4s ease, margin .4s ease; text-shadow:0 2px 16px rgba(4,6,15,.7); }
-        #navLinks a { font-size:.8rem; transition: font-size .4s ease; text-shadow:0 2px 14px rgba(4,6,15,.6); }
-        #topnav.scrolled { background: rgba(14,14,15,0.65); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border-color: rgba(255,255,255,0.1); box-shadow:0 10px 30px rgba(0,0,0,.35); }
+            transition: opacity .35s ease, max-width .4s ease, margin .4s ease; text-shadow:0 2px 16px rgba(16,24,40,.7); }
+        #navLinks a { font-size:.8rem; transition: font-size .4s ease; text-shadow:0 2px 14px rgba(16,24,40,.6); }
+        #topnav.scrolled { background: rgba(16,24,40,0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-color: rgba(255,255,255,0.1); box-shadow:0 10px 30px rgba(16,24,40,.25); }
         #topnav.scrolled #navbar { height:5rem; }
         #topnav.scrolled #navLogo { height:2.25rem; }
         #topnav.scrolled #navWordmark { opacity:0; max-width:0; margin-left:-0.75rem; text-shadow:none; }
@@ -107,28 +103,28 @@
         .nav-fade { animation: navIn .7s ease both; animation-delay: var(--d,0s); }
         @media (prefers-reduced-motion: reduce) { .nav-fade { animation:none; } }
         /* distinct cosmic objects for the timeline circles */
-        .cosmic-circle { border-radius:50%; flex:none; position:relative; overflow:hidden; background:#06080f;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.6), 0 0 26px rgba(37,99,235,0.30); }
+        .cosmic-circle { border-radius:50%; flex:none; position:relative; overflow:hidden; background:#101828;
+            box-shadow: inset 0 0 30px rgba(16,24,40,0.6), 0 12px 26px rgba(16,24,40,0.20); }
         .cosmic-circle::after { content:""; position:absolute; inset:0; }
         .c-nebula { background:
-            radial-gradient(42% 52% at 32% 36%, rgba(99,179,237,0.85), transparent 70%),
-            radial-gradient(46% 56% at 70% 62%, rgba(129,140,248,0.75), transparent 70%),
-            radial-gradient(50% 50% at 56% 30%, rgba(56,189,248,0.5), transparent 70%), #0a1130; }
+            radial-gradient(42% 52% at 32% 36%, rgba(167,182,197,0.85), transparent 70%),
+            radial-gradient(46% 56% at 70% 62%, rgba(81,107,132,0.75), transparent 70%),
+            radial-gradient(50% 50% at 56% 30%, rgba(191,207,221,0.5), transparent 70%), #101828; }
         .c-nebula::after { background-image:
             radial-gradient(1.5px 1.5px at 22% 30%, #fff, transparent),
             radial-gradient(1.5px 1.5px at 68% 58%, #fff, transparent),
             radial-gradient(1.5px 1.5px at 44% 78%, #fff, transparent),
             radial-gradient(1.5px 1.5px at 80% 36%, #fff, transparent); opacity:.85; }
-        .c-star { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #cfe0ff 16%, #5b8ce8 44%, #16275e 82%); }
+        .c-star { background: radial-gradient(circle at 50% 50%, #ffffff 0%, #BFCFDD 16%, #516B84 44%, #1F3A5F 82%); }
         .c-star::after { background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.9) 0 6%, transparent 30%); mix-blend-mode:screen; }
-        .c-gas { background: repeating-linear-gradient(9deg, #1b3a7a 0 7px, #3563bd 7px 12px, #7aa0e6 12px 16px, #244a92 16px 24px); }
+        .c-gas { background: repeating-linear-gradient(9deg, #1F3A5F 0 7px, #2C4A73 7px 12px, #A7B6C5 12px 16px, #516B84 16px 24px); }
         .c-gas::after { background: radial-gradient(circle at 34% 30%, rgba(255,255,255,0.28), transparent 56%); }
-        .c-galaxy { background: conic-gradient(from 210deg at 50% 50%, #0a1130, #2a4a9e, #7aa6ff, #2a4a9e, #101a44, #1a2f6a, #0a1130); }
-        .c-galaxy::after { background: radial-gradient(circle at 50% 50%, #fff 0 3%, rgba(200,220,255,0.7) 7%, transparent 30%); }
-        .c-ring { background: radial-gradient(circle at 38% 32%, #7aa6ff, #2c50b0 46%, #0b1740 82%); }
+        .c-galaxy { background: conic-gradient(from 210deg at 50% 50%, #101828, #1F3A5F, #A7B6C5, #1F3A5F, #101828, #2C4A73, #101828); }
+        .c-galaxy::after { background: radial-gradient(circle at 50% 50%, #fff 0 3%, rgba(191,207,221,0.7) 7%, transparent 30%); }
+        .c-ring { background: radial-gradient(circle at 38% 32%, #A7B6C5, #2C4A73 46%, #101828 82%); }
         .c-ring::after { inset:auto; left:-16%; right:-16%; top:50%; height:34%; transform:translateY(-50%) rotate(-20deg);
-            border-radius:50%; border:3px solid rgba(190,215,255,0.75); box-shadow:0 0 8px rgba(150,190,255,0.55); }
-        .c-moon { background: radial-gradient(circle at 40% 35%, #d4def2, #8295c6 52%, #2c3a66 86%); }
+            border-radius:50%; border:3px solid rgba(191,207,221,0.75); box-shadow:0 0 8px rgba(167,182,197,0.55); }
+        .c-moon { background: radial-gradient(circle at 40% 35%, #D9E1E8, #7E92A8 52%, #1F3A5F 86%); }
         .c-moon::after { background:
             radial-gradient(9% 9% at 30% 42%, rgba(20,30,60,0.5), transparent 70%),
             radial-gradient(11% 11% at 62% 60%, rgba(20,30,60,0.45), transparent 70%),
@@ -144,9 +140,16 @@
                     "colors": {
                         "surface-container-highest": "#353436",
                         "on-tertiary-container": "#ffede6",
-                        "electric-blue": "#2563EB",
-                        "phoenix": "#2563EB",
-                        "phoenix-bright": "#3B82F6",
+                        "electric-blue": "#1F3A5F",
+                        "phoenix": "#2C4A73",
+                        "phoenix-bright": "#1b2a8c",
+                        "midnight": "#101828",
+                        "navy": "#1F3A5F",
+                        "slateblue": "#516B84",
+                        "steel": "#6B7280",
+                        "charcoal": "#374151",
+                        "powder": "#BFCFDD",
+                        "pop": "#1b2a8c",
                         "on-surface-variant": "#c3c6d7",
                         "tertiary-fixed-dim": "#ffb596",
                         "surface": "#131314",
@@ -178,7 +181,7 @@
                         "error": "#ffb4ab",
                         "primary-fixed": "#dbe1ff",
                         "secondary-fixed": "#e2e2e2",
-                        "on-surface": "#e5e2e3",
+                        "on-surface": "#101828",
                         "inverse-surface": "#e5e2e3",
                         "on-secondary": "#2f3131",
                         "inverse-primary": "#0053db",
@@ -186,7 +189,7 @@
                         "on-error": "#690005",
                         "secondary-container": "#454747",
                         "tertiary-fixed": "#ffdbcd",
-                        "obsidian-base": "#0E0E0F",
+                        "obsidian-base": "#F8FAFC",
                         "blueprint-grid": "rgba(255, 255, 255, 0.03)",
                         "tertiary": "#ffb596",
                         "surface-dim": "#131314",
@@ -212,12 +215,12 @@
                         "margin-desktop": "48px"
                     },
                     "fontFamily": {
-                        "body-lg": ["Inter"],
-                        "body-sm": ["Inter"],
-                        "display-lg": ["Inter"],
-                        "data-label": ["JetBrains Mono"],
-                        "data-value": ["JetBrains Mono"],
-                        "headline-md": ["Inter"]
+                        "body-lg": ["Karla", "sans-serif"],
+                        "body-sm": ["Karla", "sans-serif"],
+                        "display-lg": ["Fraunces", "serif"],
+                        "data-label": ["Karla", "sans-serif"],
+                        "data-value": ["Karla", "sans-serif"],
+                        "headline-md": ["Fraunces", "serif"]
                     }
                 }
             }
@@ -230,28 +233,28 @@
 <div id="navbar" class="relative flex justify-between items-center px-margin-desktop max-w-container-max mx-auto">
 <a href="home.html" class="flex items-center gap-3 nav-fade" style="--d:0s" aria-label="Sigma Eta Pi — Home">
 <img src="assets/emblem-white.png" alt="Sigma Eta Pi phoenix" id="navLogo" class="w-auto"/>
-<span id="navWordmark" class="font-black leading-[1.02] text-white text-2xl whitespace-nowrap">Sigma<br/>Eta&nbsp;Pi™</span>
+<span id="navWordmark" class="brand-lockup font-black leading-[1.02] text-white text-2xl whitespace-nowrap">Sigma<br/>Eta&nbsp;Pi™</span>
 </a>
 <div id="navLinks" class="hidden md:flex items-center gap-7">
 <a href="community.html" class="nav-fade label text-white/70 hover:text-white transition-colors" style="--d:.12s">About</a>
 <a href="roster.html" class="nav-fade label text-white/70 hover:text-white transition-colors" style="--d:.2s">People</a>
 <a href="program.html" class="nav-fade label text-white/70 hover:text-white transition-colors" style="--d:.28s">Growth</a>
-<a href="recruitment.html" class="nav-fade label px-5 py-2 rounded-full bg-phoenix-bright text-white" style="--d:.36s">Recruitment</a>
+<a href="recruitment.html" class="nav-fade label px-5 py-2 rounded-full bg-phoenix text-white" style="--d:.36s">Recruitment</a>
 </div>
 <button id="navToggle" class="md:hidden relative z-10 -mr-1 w-10 h-10 flex items-center justify-center text-white" aria-label="Open menu" aria-expanded="false">
 <svg id="navIconOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
 <svg id="navIconClose" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6 hidden"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
 </button>
 </div>
-<div id="mobileMenu" class="md:hidden hidden mx-4 mb-3 rounded-2xl border border-white/10 bg-[#04060f]/95 backdrop-blur-xl overflow-hidden">
+<div id="mobileMenu" class="md:hidden hidden mx-4 mb-3 rounded-2xl border border-white/10 bg-[#101828]/95 backdrop-blur-xl overflow-hidden">
 <a href="community.html" class="block label text-sm px-6 py-4 text-white/80 hover:bg-white/5 border-b border-white/5">About</a>
 <a href="roster.html" class="block label text-sm px-6 py-4 text-white/80 hover:bg-white/5 border-b border-white/5">People</a>
 <a href="program.html" class="block label text-sm px-6 py-4 text-white/80 hover:bg-white/5 border-b border-white/5">Growth</a>
-<a href="recruitment.html" class="block label text-sm px-6 py-4 text-phoenix-bright hover:bg-white/5">Recruitment</a>
+<a href="recruitment.html" class="block label text-sm px-6 py-4 text-powder hover:bg-white/5">Recruitment</a>
 </div>
 </nav>
 <!-- Hero Section -->
-<header class="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
+<header class="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden bg-[#101828] text-white">
 <div class="hero-flare" aria-hidden="true"></div>
 <div class="hero-scrim" aria-hidden="true"></div>
 <img src="assets/emblem-white.png" alt="Sigma Eta Pi phoenix" class="relative z-10 h-24 sm:h-32 w-auto"/>
@@ -266,7 +269,7 @@
 <div class="reveal flex items-stretch gap-5 sm:gap-10">
 <div class="flex items-center shrink-0"><div class="cosmic-circle c-nebula w-16 h-16 sm:w-28 sm:h-28"></div></div>
 <div class="flex flex-col items-end justify-center w-14 sm:w-24 shrink-0"><span class="tl-date text-2xl sm:text-4xl">09/09</span></div>
-<div class="w-[2px] bg-white/40 shrink-0"></div>
+<div class="w-[2px] bg-[#D1D5DB] shrink-0"></div>
 <div class="flex flex-col justify-center py-7 sm:py-10 flex-1">
 <p class="tl-time text-base sm:text-lg">6–7 PM</p>
 <h3 class="tl-title text-2xl sm:text-4xl mt-0.5">Info Night</h3>
@@ -276,7 +279,7 @@
 <div class="reveal flex items-stretch gap-5 sm:gap-10">
 <div class="flex items-center shrink-0"><div class="cosmic-circle c-star w-16 h-16 sm:w-28 sm:h-28"></div></div>
 <div class="flex flex-col items-end justify-center w-14 sm:w-24 shrink-0"><span class="tl-date text-2xl sm:text-4xl">09/18</span></div>
-<div class="w-[2px] bg-white/40 shrink-0"></div>
+<div class="w-[2px] bg-[#D1D5DB] shrink-0"></div>
 <div class="flex flex-col justify-center py-7 sm:py-10 flex-1">
 <p class="tl-time text-base sm:text-lg">12:00 PM</p>
 <h3 class="tl-title text-2xl sm:text-4xl mt-0.5">Applications Due</h3>
@@ -286,7 +289,7 @@
 <div class="reveal flex items-stretch gap-5 sm:gap-10">
 <div class="flex items-center shrink-0"><div class="cosmic-circle c-gas w-16 h-16 sm:w-28 sm:h-28"></div></div>
 <div class="flex flex-col items-end justify-center w-14 sm:w-24 shrink-0"><span class="tl-date text-2xl sm:text-4xl">09/21</span></div>
-<div class="w-[2px] bg-white/40 shrink-0"></div>
+<div class="w-[2px] bg-[#D1D5DB] shrink-0"></div>
 <div class="flex flex-col justify-center py-7 sm:py-10 flex-1">
 <p class="tl-time text-base sm:text-lg">6–7 PM</p>
 <h3 class="tl-title text-2xl sm:text-4xl mt-0.5">Resume Workshop</h3>
@@ -295,8 +298,8 @@
 </div>
 <div class="reveal flex items-stretch gap-5 sm:gap-10">
 <div class="flex items-center shrink-0"><div class="cosmic-circle c-galaxy w-16 h-16 sm:w-28 sm:h-28"></div></div>
-<div class="flex flex-col items-end justify-center w-14 sm:w-24 shrink-0"><span class="tl-date text-2xl sm:text-4xl">09/21</span><span class="tl-date text-sm sm:text-base text-white/45 mt-1">– 09/25</span></div>
-<div class="w-[2px] bg-white/40 shrink-0"></div>
+<div class="flex flex-col items-end justify-center w-14 sm:w-24 shrink-0"><span class="tl-date text-2xl sm:text-4xl">09/21</span><span class="tl-date text-sm sm:text-base text-steel mt-1">– 09/25</span></div>
+<div class="w-[2px] bg-[#D1D5DB] shrink-0"></div>
 <div class="flex flex-col justify-center py-7 sm:py-10 flex-1">
 <p class="tl-time text-base sm:text-lg">By signup</p>
 <h3 class="tl-title text-2xl sm:text-4xl mt-0.5">Coffee Chats</h3>
@@ -306,9 +309,9 @@
 <div class="reveal flex items-stretch gap-5 sm:gap-10">
 <div class="flex items-center shrink-0"><div class="cosmic-circle c-ring w-16 h-16 sm:w-28 sm:h-28"></div></div>
 <div class="flex flex-col items-end justify-center w-14 sm:w-24 shrink-0"><span class="tl-date text-2xl sm:text-4xl">09/29</span></div>
-<div class="w-[2px] bg-white/40 shrink-0"></div>
+<div class="w-[2px] bg-[#D1D5DB] shrink-0"></div>
 <div class="flex flex-col justify-center py-7 sm:py-10 flex-1">
-<p class="tl-time text-base sm:text-lg"><span class="not-italic font-semibold text-white/55">Invite Only</span></p>
+<p class="tl-time text-base sm:text-lg"><span class="not-italic font-semibold text-steel">Invite Only</span></p>
 <h3 class="tl-title text-2xl sm:text-4xl mt-0.5">First Round Interviews</h3>
 
 </div>
@@ -316,9 +319,9 @@
 <div class="reveal flex items-stretch gap-5 sm:gap-10">
 <div class="flex items-center shrink-0"><div class="cosmic-circle c-moon w-16 h-16 sm:w-28 sm:h-28"></div></div>
 <div class="flex flex-col items-end justify-center w-14 sm:w-24 shrink-0"><span class="tl-date text-2xl sm:text-4xl">10/01</span></div>
-<div class="w-[2px] bg-white/40 shrink-0"></div>
+<div class="w-[2px] bg-[#D1D5DB] shrink-0"></div>
 <div class="flex flex-col justify-center py-7 sm:py-10 flex-1">
-<p class="tl-time text-base sm:text-lg"><span class="not-italic font-semibold text-white/55">Invite Only</span></p>
+<p class="tl-time text-base sm:text-lg"><span class="not-italic font-semibold text-steel">Invite Only</span></p>
 <h3 class="tl-title text-2xl sm:text-4xl mt-0.5">Second Round Interviews</h3>
 
 </div>
@@ -326,22 +329,22 @@
 </div>
 </main>
 <!-- Footer -->
-<footer class="border-t hairline px-6 py-16">
+<footer class="border-t hairline bg-[#101828] px-6 py-16">
     <!-- top row: phoenix lockup · socials -->
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
       <a href="home.html" class="flex items-center gap-5" aria-label="Sigma Eta Pi home">
         <img src="assets/emblem-white.png" alt="Sigma Eta Pi phoenix" class="h-16 w-auto"/>
         <span class="leading-none">
-          <span class="block text-3xl font-black tracking-tight text-white">Sigma Eta Pi</span>
+          <span class="brand-lockup block text-3xl font-black tracking-tight text-white">Sigma Eta Pi</span>
           <span class="block mt-1 text-xl font-medium text-white/45">@ Miami University</span>
         </span>
       </a>
 
       <div class="flex items-center justify-center gap-4">
-        <a href="https://www.instagram.com/sigmaetapimu/" target="_blank" rel="noopener" aria-label="Instagram" class="w-11 h-11 border hairline rounded-full flex items-center justify-center hover:border-phoenix hover:text-phoenix-bright transition-colors">
+        <a href="https://www.instagram.com/sigmaetapimu/" target="_blank" rel="noopener" aria-label="Instagram" class="w-11 h-11 border hairline rounded-full flex items-center justify-center text-white/80 hover:border-powder hover:text-powder transition-colors">
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.67 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63 19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.41-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg>
         </a>
-        <a href="https://www.linkedin.com/company/sigma-eta-pi-miami-university/" target="_blank" rel="noopener" aria-label="LinkedIn" class="w-11 h-11 border hairline rounded-full flex items-center justify-center hover:border-phoenix hover:text-phoenix-bright transition-colors">
+        <a href="https://www.linkedin.com/company/sigma-eta-pi-miami-university/" target="_blank" rel="noopener" aria-label="LinkedIn" class="w-11 h-11 border hairline rounded-full flex items-center justify-center text-white/80 hover:border-powder hover:text-powder transition-colors">
           <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
         </a>
       </div>
