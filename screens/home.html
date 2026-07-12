@@ -49,8 +49,18 @@
   @keyframes marq { to { transform: translateX(-50%); } }
   .chip { display: inline-flex; align-items: center; justify-content: center; height: 60px; padding: 0 22px; border-radius: 12px; background: #fff; border: 1px solid #E5E7EB; flex: none; transition: transform .3s ease; }
   .chip:hover { transform: translateY(-2px); }
-  .chip img { height: 28px; width: auto; max-width: 200px; object-fit: contain; display: block; }
+  .chip img { height: 36px; width: auto; max-width: 260px; object-fit: contain; display: block; }
   .chip.full { width: 100%; }
+
+  /* CHAPTER RESULTS — scrolling stat bar directly below the landing hero */
+  .statbar { background: #101828; border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.08); }
+  .statbar-track { display: flex; align-items: center; width: max-content; animation: marq 30s linear infinite; }
+  .statbar:hover .statbar-track { animation-play-state: paused; }
+  .statbar-group { display: flex; align-items: center; flex: none; }
+  .stat-item { display: inline-flex; align-items: baseline; gap: 12px; padding: 20px 30px; white-space: nowrap; }
+  .stat-item b { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.75rem; line-height: 1; color: #fff; }
+  .stat-item span { font-family: "Karla", sans-serif; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; font-size: .65rem; color: rgba(255,255,255,.55); }
+  .stat-dot { width: 5px; height: 5px; border-radius: 50%; background: #516B84; flex: none; }
 
   .glow-btn { box-shadow: 0 10px 25px rgba(31,58,95,.25); }
   .glow-btn:hover { box-shadow: 0 14px 32px rgba(31,58,95,.35); transform: translateY(-1px); }
@@ -66,7 +76,7 @@
   /* floating logos — natural colour on the white panel, light up to full colour + pop on hover */
   .cloud-logos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 22px 30px; }
   .cloud-chip { display: inline-flex; animation: floatBob var(--dur, 6s) ease-in-out var(--delay, 0s) infinite; }
-  .cloud-chip img { height: 54px; width: auto; max-width: 180px; object-fit: contain; display: block;
+  .cloud-chip img { height: 70px; width: auto; max-width: 234px; object-fit: contain; display: block;
     filter: grayscale(.55); opacity: .85;
     transition: opacity .35s ease, transform .4s cubic-bezier(.2,.8,.2,1.1), filter .35s ease; }
   .cloud:hover .cloud-chip img { opacity: .4; filter: grayscale(.9); }   /* dim the others */
@@ -131,7 +141,7 @@
   .nav-fade { animation: navIn .7s ease both; animation-delay: var(--d,0s); }
 
   @media (prefers-reduced-motion: reduce) {
-    .marq-track, .glow-btn, .cosmic::before, .cloud-chip, .nav-fade { animation: none; }
+    .marq-track, .statbar-track, .glow-btn, .cosmic::before, .cloud-chip, .nav-fade { animation: none; }
     .reveal { opacity: 1; transform: none; transition: none; }
   }
 </style>
@@ -189,6 +199,24 @@
 
 <!-- everything after the landing page lives on the cosmic background -->
 <div class="cosmic">
+
+  <!-- CHAPTER RESULTS — scrolling success stats, directly below the landing logo -->
+  <div class="statbar marq" aria-label="Chapter results">
+    <div class="statbar-track">
+      <div class="statbar-group">
+        <span class="stat-item"><b>17</b><span>Ventures Started</span></span><span class="stat-dot" aria-hidden="true"></span>
+        <span class="stat-item"><b>$92k+</b><span>Pitch Competition Wins</span></span><span class="stat-dot" aria-hidden="true"></span>
+        <span class="stat-item"><b>$95k+</b><span>Raised for Ventures</span></span><span class="stat-dot" aria-hidden="true"></span>
+        <span class="stat-item"><b>$310k+</b><span>Total Revenue</span></span><span class="stat-dot" aria-hidden="true"></span>
+      </div>
+      <div class="statbar-group" aria-hidden="true">
+        <span class="stat-item"><b>17</b><span>Ventures Started</span></span><span class="stat-dot"></span>
+        <span class="stat-item"><b>$92k+</b><span>Pitch Competition Wins</span></span><span class="stat-dot"></span>
+        <span class="stat-item"><b>$95k+</b><span>Raised for Ventures</span></span><span class="stat-dot"></span>
+        <span class="stat-item"><b>$310k+</b><span>Total Revenue</span></span><span class="stat-dot"></span>
+      </div>
+    </div>
+  </div>
 
   <!-- PIECE 1 — TAKE A CHANCE (text left, Ventures cloud right) -->
   <section class="max-w-6xl mx-auto px-6 pt-32 pb-28 grid lg:grid-cols-2 gap-14 items-center">
@@ -256,14 +284,6 @@
   <section class="py-28 px-6 border-t hairline">
     <div class="max-w-5xl mx-auto text-center">
       <h2 class="reveal text-4xl md:text-6xl font-black tracking-tight">See our <span class="text-pop">Success</span></h2>
-
-      <!-- numbers -->
-      <div class="reveal mt-8 border hairline rounded-2xl py-12 px-8 grid grid-cols-2 lg:grid-cols-4 gap-y-10 bg-white shadow-[0_20px_50px_rgba(16,24,40,0.08)]">
-        <div><div class="text-5xl md:text-6xl font-black text-midnight"><span data-count="17">0</span></div><p class="label text-[10px] text-steel mt-3">Ventures started</p></div>
-        <div><div class="text-5xl md:text-6xl font-black text-pop"><span data-count="92" data-prefix="$" data-suffix="k+">0</span></div><p class="label text-[10px] text-steel mt-3">Pitch competition wins</p></div>
-        <div><div class="text-5xl md:text-6xl font-black text-pop"><span data-count="95" data-prefix="$" data-suffix="k+">0</span></div><p class="label text-[10px] text-steel mt-3">Raised for ventures</p></div>
-        <div><div class="text-5xl md:text-6xl font-black text-pop"><span data-count="310" data-prefix="$" data-suffix="k+">0</span></div><p class="label text-[10px] text-steel mt-3">Total revenue</p></div>
-      </div>
 
       <div class="reveal mt-16">
         <a href="recruitment.html" class="glow-btn inline-block label text-sm px-14 py-5 rounded-full bg-phoenix text-white hover:bg-phoenix-bright transition-all">Join the Fun</a>
@@ -378,17 +398,6 @@
 
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
   document.querySelectorAll(".reveal").forEach(el => io.observe(el));
-
-  document.querySelectorAll("[data-count]").forEach(el => {
-    const target = parseInt(el.dataset.count, 10), pre = el.dataset.prefix || "", suf = el.dataset.suffix || "";
-    const once = new IntersectionObserver(es => es.forEach(e => {
-      if (!e.isIntersecting) return; once.disconnect();
-      const t0 = performance.now(), dur = 1300;
-      const tick = t => { const p = Math.min((t - t0) / dur, 1); el.textContent = pre + Math.floor((1 - Math.pow(1 - p, 3)) * target) + suf; if (p < 1) requestAnimationFrame(tick); };
-      requestAnimationFrame(tick);
-    }), { threshold: 0.5 });
-    once.observe(el);
-  });
 </script>
 <script>
   /* mobile menu toggle */

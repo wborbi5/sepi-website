@@ -57,44 +57,21 @@
     filter: blur(6px); animation: spin 70s linear infinite; }
   @keyframes spin { to { transform:translate(-50%,-50%) rotate(360deg); } }
 
-  /* ===== PLAYING CARDS (values) ===== */
-  .deck { perspective: 1600px; }
-  .pcard { position: relative; width: 100%; aspect-ratio: 5 / 7; cursor: pointer; background: none; border: 0; padding: 0; text-align: left;
-    transition: transform .35s cubic-bezier(.2,.8,.2,1); transform-origin: center bottom; }
-  .pcard:hover { transform: translateY(-10px) rotate(-1deg); }
-  .pcard-inner { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.2,.85,.25,1); }
-  .pcard.flipped .pcard-inner { transform: rotateY(180deg); }
-  .pface { position: absolute; inset: 0; border-radius: 18px; backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: hidden;
-    border: 1px solid #D1D5DB; box-shadow: 0 18px 40px rgba(16,24,40,.25), inset 0 0 0 1px rgba(255,255,255,.05); }
-  /* card back (face-down): midnight-navy */
-  .pback { background:
-      radial-gradient(40% 50% at 30% 30%, rgba(167,182,197,.35), transparent 70%),
-      radial-gradient(48% 56% at 72% 64%, rgba(81,107,132,.5), transparent 70%),
-      radial-gradient(60% 60% at 52% 30%, rgba(191,207,221,.22), transparent 70%),
-      conic-gradient(from 200deg at 50% 50%, #101828, #1F3A5F, #101828, #2C4A73, #101828);
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
-  .pback::after { content:""; position:absolute; inset:0; pointer-events:none; background-image:
-      radial-gradient(1.4px 1.4px at 18% 24%, #fff, transparent),
-      radial-gradient(1.4px 1.4px at 70% 40%, #fff, transparent),
-      radial-gradient(1.4px 1.4px at 40% 72%, #fff, transparent),
-      radial-gradient(1.2px 1.2px at 82% 78%, #fff, transparent),
-      radial-gradient(1.2px 1.2px at 28% 54%, #BFCFDD, transparent); opacity:.85; }
-  .pip { position:absolute; font-size: 1.05rem; font-weight: 800; line-height: 1; text-align:center; color: #BFCFDD; }
+  /* ===== PLAYING CARDS (values) — static cards with a simple hover lift ===== */
+  .pcard { position: relative; width: 100%; aspect-ratio: 5 / 7; text-align: left; border-radius: 18px; overflow: hidden;
+    border: 1px solid #D1D5DB; background: linear-gradient(180deg, #FFFFFF, #F8FAFC);
+    box-shadow: 0 18px 40px rgba(16,24,40,.18);
+    display: flex; flex-direction: column; padding: 48px 20px 40px;
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+  .pcard:hover { transform: translateY(-8px); box-shadow: 0 26px 54px rgba(16,24,40,.26); border-color: #A7B6C5; }
+  .pip { position:absolute; font-size: 1.05rem; font-weight: 800; line-height: 1; text-align:center; }
   .pip .s { display:block; font-size: .95rem; margin-top: 2px; }
   .pip.tl { top: 12px; left: 13px; }
   .pip.br { bottom: 12px; right: 13px; transform: rotate(180deg); }
-  .pback .crest { width: 46%; max-width: 120px; filter: drop-shadow(0 0 10px rgba(191,207,221,.6)) drop-shadow(0 0 26px rgba(31,58,95,.6)); }
-  .pback .vname { font-family:"Karla",sans-serif; font-weight:700; letter-spacing:.1em; text-transform:uppercase; font-size:.8rem; color:#BFCFDD; }
-  .pback .tap { position:absolute; bottom:14px; left:0; right:0; text-align:center; font-size:.6rem; }
-  .pback .suit-blue { color:#BFCFDD; } .pback .suit-red { color:#D9A8A8; }
-  /* card front (revealed text) */
-  .pfront { transform: rotateY(180deg); background:
-      linear-gradient(180deg, #FFFFFF, #F8FAFC);
-    display: flex; flex-direction: column; padding: 22px 20px; }
-  .pfront .suit { font-size: 1.5rem; line-height:1; }
-  .pfront h3 { font-weight:900; letter-spacing:-0.01em; }
-  .pfront p { color: #374151; font-size: .92rem; line-height: 1.5; overflow:auto; }
-  .pfront p::-webkit-scrollbar { width:4px; } .pfront p::-webkit-scrollbar-thumb { background:#D1D5DB; border-radius:2px; }
+  .pcard .suit { font-size: 1.5rem; line-height:1; }
+  .pcard h3 { font-weight:900; letter-spacing:-0.01em; }
+  .pcard p { color: #374151; font-size: .92rem; line-height: 1.5; overflow:auto; }
+  .pcard p::-webkit-scrollbar { width:4px; } .pcard p::-webkit-scrollbar-thumb { background:#D1D5DB; border-radius:2px; }
   .suit-red { color:#9E4A4A; } .suit-blue { color:#1b2a8c; }
 
   /* drop cap for the long About paragraph */
@@ -113,11 +90,6 @@
   .shooting-star.s1 { top:16%; left:-12%; animation: shoot 7s ease-in 2s infinite; }
   .shooting-star.s2 { top:34%; left:-12%; animation: shoot 9s ease-in 5.5s infinite; }
   @keyframes shoot { 0%{opacity:0;transform:translate(0,0) rotate(16deg);} 5%{opacity:1;} 22%{opacity:0;transform:translate(78vw,24vh) rotate(16deg);} 100%{opacity:0;} }
-
-  /* card glint on hover */
-  .pcard:hover .pback::before { content:""; position:absolute; top:-40%; left:-70%; width:55%; height:180%; transform:rotate(18deg); z-index:1;
-    background:linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent); animation: glint .7s ease forwards; }
-  @keyframes glint { to { left:130%; } }
 
   /* ===== game extras: level bar + level-up toast ===== */
   .game-bar { position:absolute; left:0; right:0; bottom:0; height:4px; background:rgba(255,255,255,.08); z-index:2; }
@@ -413,31 +385,18 @@
   ];
   const deck = document.getElementById("deck");
   deck.innerHTML = VALUES.map((v, i) => `
-    <button class="pcard reveal" style="transition-delay:${i * 90}ms" aria-pressed="false" aria-label="${v.name} — flip to read">
-      <div class="pcard-inner">
-        <div class="pface pback">
-          <span class="pip tl ${v.cls}">A<span class="s">${v.suit}</span></span>
-          <span class="pip br ${v.cls}">A<span class="s">${v.suit}</span></span>
-          <img class="crest" src="assets/emblem-white.png" alt=""/>
-          <span class="vname">${v.name}</span>
-          <span class="tap label text-white/55">Tap to flip</span>
-        </div>
-        <div class="pface pfront">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="suit ${v.cls}">${v.suit}</span>
-            <h3 class="text-xl text-midnight">${v.name}</h3>
-          </div>
-          <div class="h-px bg-stone mb-4"></div>
-          <p>${v.body}</p>
-        </div>
+    <div class="pcard reveal" style="transition-delay:${i * 90}ms">
+      <span class="pip tl ${v.cls}">A<span class="s">${v.suit}</span></span>
+      <span class="pip br ${v.cls}">A<span class="s">${v.suit}</span></span>
+      <div class="flex items-center gap-3 mb-3">
+        <span class="suit ${v.cls}">${v.suit}</span>
+        <h3 class="text-xl text-midnight">${v.name}</h3>
       </div>
-    </button>`).join("");
+      <div class="h-px bg-stone mb-4"></div>
+      <p>${v.body}</p>
+    </div>`).join("");
   // re-observe newly created reveal cards
   deck.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-  const cards = [...deck.querySelectorAll(".pcard")];
-  cards.forEach((c) => c.addEventListener("click", () => {
-    const f = c.classList.toggle("flipped"); c.setAttribute("aria-pressed", f);
-  }));
 
   /* ---------- MINI-GAME: chase the yes (ramping chaos, finite — win at L9) ---------- */
   (function () {

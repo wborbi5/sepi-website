@@ -38,21 +38,20 @@
   .tab:hover { color: #101828; border-color: #516B84; }
   .tab-active { background: #1F3A5F; border-color: #1F3A5F; color: #fff; box-shadow: 0 10px 24px rgba(31,58,95,.25); }
 
-  /* member cards — cut-out headshot on a navy gradient that pops on hover */
-  .member-frame { position: relative; aspect-ratio: 1 / 1.06; }
-  .member-card { position: absolute; inset: 0; border-radius: 16px;
+  /* member cards — cut-out headshot on a navy gradient; card + photo scale together on hover */
+  .member-frame { position: relative; aspect-ratio: 1 / 1.06;
+    transition: transform .35s cubic-bezier(.2,.8,.2,1.05); will-change: transform; }
+  .member:hover .member-frame { transform: scale(1.05); }
+  .member-card { position: absolute; inset: 0; border-radius: 16px; overflow: hidden;
     background: linear-gradient(165deg, #101828 0%, #1F3A5F 60%, #516B84 100%);
     box-shadow: 0 12px 32px rgba(16,24,40,.22), inset 0 0 0 1px rgba(255,255,255,.07); transition: box-shadow .35s ease; }
-  .member-photo { position: absolute; left: 50%; bottom: -1px; transform: translateX(-50%); width: 116%; max-width: none;
-    object-fit: contain; object-position: bottom; filter: drop-shadow(0 8px 18px rgba(16,24,40,.35));
-    transition: transform .35s cubic-bezier(.2,.8,.2,1.05); will-change: transform; }
-  .member:hover .member-photo { transform: translateX(-50%) scale(1.06) translateY(-12px); }
+  .member-photo { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 100%; height: 100%; max-width: none;
+    object-fit: contain; object-position: bottom; filter: drop-shadow(0 8px 18px rgba(16,24,40,.35)); }
   .member:hover .member-card { box-shadow: 0 22px 54px rgba(31,58,95,.4), inset 0 0 0 1px rgba(167,182,197,.65); }
-  /* founder company badge — bottom-right of the photo */
-  .founder-badge { position: absolute; right: -8px; bottom: -8px; z-index: 6; width: 60px; height: 60px; border-radius: 14px;
-    background: #fff; display: flex; align-items: center; justify-content: center; padding: 7px;
-    box-shadow: 0 6px 18px rgba(16,24,40,.25), 0 0 0 1px #D1D5DB; transition: transform .3s ease; }
-  .member:hover .founder-badge { transform: scale(1.12); }
+  /* founder company badge — sits inside the bottom-right corner of the card */
+  .founder-badge { position: absolute; right: 10px; bottom: 10px; z-index: 6; width: 78px; height: 78px; border-radius: 14px;
+    background: #fff; display: flex; align-items: center; justify-content: center; padding: 9px;
+    box-shadow: 0 6px 18px rgba(16,24,40,.25), 0 0 0 1px #D1D5DB; }
   .founder-badge img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
 
   /* expanding header — solid Midnight bar (page body is light), shrinks on scroll */
@@ -190,7 +189,7 @@
     const link = m.li ? m.li.trim() : (m.ig ? igUrl(m.ig) : "");
     const initials = (m.f[0] + (m.l[0] || "")).toUpperCase();
     const face = m.img
-      ? `<div class="member-card"></div><img class="member-photo" src="${m.img}" alt="${m.f} ${m.l}" loading="lazy"/>`
+      ? `<div class="member-card"><img class="member-photo" src="${m.img}" alt="${m.f} ${m.l}" loading="lazy"/></div>`
       : `<div class="member-card grid place-items-center"><span class="text-5xl font-black text-white/30">${initials}</span></div>`;
     const badge = m.co ? `<div class="founder-badge" title="Founder"><img src="assets/logos/${m.co}.png" alt="" loading="lazy"/></div>` : "";
     const o = link ? `<a href="${link}" target="_blank" rel="noopener"` : "<div";
