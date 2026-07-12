@@ -3,44 +3,56 @@
 Usage: python headshot.py <input_image> <output-slug>
 Outputs: vanguard/screens/assets/headshots/<output-slug>.png  (transparent PNG, 400x400)
 
-Two-pass pipeline: a first segmentation finds the person to frame the crop,
-then the background is removed again on the cropped region at working
-resolution — full-frame photos give the model too little hair detail and
-leave halos around curls.
+Pipeline (keeps every roster card framed identically):
+1. detect the face (YuNet, tools/yunet.onnx) and frame a square crop so the
+   face is 38% of the frame height with its center at (50%, 37%)
+2. re-run background removal on the crop at working resolution — full-frame
+   photos give the model too little hair detail and leave halos around curls
+3. solidify + defringe the matte, resize to 400, anchor bottom-flush
 """
 import os
 import sys
+import cv2
 import numpy as np
 from rembg import new_session, remove
-from PIL import Image, ImageFilter
+from PIL import Image, ImageFilter, ImageOps
+
+FACE_H = 0.38   # face height as a fraction of the frame
+FACE_CY = 0.37  # face center y as a fraction of the frame
 
 infile = sys.argv[1]
 slug = sys.argv[2]
-outdir = os.path.join(os.path.dirname(__file__), "..", "screens", "assets", "headshots")
-outdir = os.path.abspath(outdir)
+tooldir = os.path.dirname(os.path.abspath(__file__))
+outdir = os.path.abspath(os.path.join(tooldir, "..", "screens", "assets", "headshots"))
 os.makedirs(outdir, exist_ok=True)
 
 # u2net_human_seg segments portraits much more cleanly than the default u2net
 session = new_session("u2net_human_seg")
+det = cv2.FaceDetectorYN_create(os.path.join(tooldir, "yunet.onnx"), "", (320, 320))
 
-img = Image.open(infile).convert("RGBA")
+img = ImageOps.exif_transpose(Image.open(infile)).convert("RGB")
+W, H = img.size
 
-# Pass 1: rough cut just to locate the person
-rough = remove(img, session=session)
-bbox = rough.split()[-1].getbbox()
-x0, y0, x1, y1 = bbox
-pw = x1 - x0
-cx = (x0 + x1) // 2
+# face detection on a bounded copy
+scale = min(1600 / max(W, H), 1.0)
+small = img.resize((int(W * scale), int(H * scale)), Image.LANCZOS) if scale < 1 else img
+bgr = cv2.cvtColor(np.asarray(small), cv2.COLOR_RGB2BGR)
+det.setInputSize((bgr.shape[1], bgr.shape[0]))
+_, faces = det.detect(bgr)
+if faces is None or len(faces) == 0:
+    sys.exit("no face detected in " + infile)
+x, y, w, h = [v / scale for v in max(faces, key=lambda b: b[2] * b[3])[:4]]
 
-# Square crop framing head + shoulders, with a little headroom above
-side = int(pw * 1.0)
-top = int(y0 - side * 0.08)
-left = int(cx - side / 2)
-crop = img.crop((left, top, left + side, top + side))  # out-of-bounds pads transparent
-
-# Pass 2: re-remove on the crop at working resolution for crisp hair edges
+# square crop framed off the face; shift up if it would run past the bottom
+side = min(h / FACE_H, H)
+left = (x + w / 2) - side / 2
+top = (y + h / 2) - FACE_CY * side
+if top + side > H:
+    top = H - side
+crop = img.crop((int(left), int(top), int(left + side), int(top + side)))
 crop = crop.resize((800, 800), Image.LANCZOS)
-cut = remove(crop.convert("RGB"), session=session).convert("RGBA")
+
+cut = remove(crop, session=session).convert("RGBA")
 
 # Solidify the matte: rembg leaves the subject at ~alpha 230-250, which lets the
 # card background bleed through. Smoothstep-remap alpha so the subject is fully
@@ -60,6 +72,16 @@ a2 = a_.filter(ImageFilter.MinFilter(9)).filter(ImageFilter.GaussianBlur(1.0))
 a2 = Image.fromarray(np.minimum(np.asarray(a_), np.asarray(a2)))
 cut = Image.merge("RGBA", (r_, g_, b_, a2))
 
-out = os.path.join(outdir, slug + ".png")
-cut.resize((400, 400), Image.LANCZOS).save(out)
-print("saved", out, "| person bbox", bbox, "| crop side", side)
+out = cut.resize((400, 400), Image.LANCZOS)
+
+# bottom-flush: cards anchor the photo to the card bottom
+a = np.asarray(out)[:, :, 3]
+rows = np.where(a.max(axis=1) > 8)[0]
+if len(rows) and rows.max() < 399 - 1:
+    shifted = Image.new("RGBA", (400, 400), (0, 0, 0, 0))
+    shifted.paste(out, (0, 399 - rows.max()))
+    out = shifted
+
+dest = os.path.join(outdir, slug + ".png")
+out.save(dest)
+print("saved", dest, "| face", (int(x), int(y), int(w), int(h)), "| crop side", int(side))
