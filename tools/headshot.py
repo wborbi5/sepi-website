@@ -79,6 +79,13 @@ cut = Image.merge("RGBA", (r_, g_, b_, a2))
 
 out = cut.resize((400, 400), Image.LANCZOS)
 
+# feather the edge ~2px inward so the cutout blends into the card background
+# (min-combine never grows the matte, so no halo can appear)
+r_, g_, b_, a_ = out.split()
+soft = a_.filter(ImageFilter.GaussianBlur(1.8))
+a_ = Image.fromarray(np.minimum(np.asarray(a_), np.asarray(soft)))
+out = Image.merge("RGBA", (r_, g_, b_, a_))
+
 # bottom-flush: cards anchor the photo to the card bottom
 a = np.asarray(out)[:, :, 3]
 rows = np.where(a.max(axis=1) > 8)[0]
