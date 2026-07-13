@@ -33,15 +33,20 @@ det = cv2.FaceDetectorYN_create(os.path.join(tooldir, "yunet.onnx"), "", (320, 3
 img = ImageOps.exif_transpose(Image.open(infile)).convert("RGB")
 W, H = img.size
 
-# face detection on a bounded copy
-scale = min(1600 / max(W, H), 1.0)
-small = img.resize((int(W * scale), int(H * scale)), Image.LANCZOS) if scale < 1 else img
-bgr = cv2.cvtColor(np.asarray(small), cv2.COLOR_RGB2BGR)
-det.setInputSize((bgr.shape[1], bgr.shape[0]))
-_, faces = det.detect(bgr)
-if faces is None or len(faces) == 0:
+# face detection on a bounded copy; retry smaller if the face fills the frame
+face = None
+for target in (1600, 1000, 640):
+    scale = min(target / max(W, H), 1.0)
+    small = img.resize((int(W * scale), int(H * scale)), Image.LANCZOS) if scale < 1 else img
+    bgr = cv2.cvtColor(np.asarray(small), cv2.COLOR_RGB2BGR)
+    det.setInputSize((bgr.shape[1], bgr.shape[0]))
+    _, faces = det.detect(bgr)
+    if faces is not None and len(faces):
+        face = [v / scale for v in max(faces, key=lambda b: b[2] * b[3])[:4]]
+        break
+if face is None:
     sys.exit("no face detected in " + infile)
-x, y, w, h = [v / scale for v in max(faces, key=lambda b: b[2] * b[3])[:4]]
+x, y, w, h = face
 
 # square crop framed off the face; shift up if it would run past the bottom
 side = min(h / FACE_H, H)
