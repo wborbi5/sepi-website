@@ -53,7 +53,9 @@
   .chip.full { width: 100%; }
 
   /* CHAPTER RESULTS — scrolling stat bar directly below the landing hero */
-  .statbar { background: #101828; border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.08); }
+  .statbar { display: flex; align-items: stretch; background: #101828; border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.08); }
+  /* pinned label so the numbers read unambiguously as the Miami chapter's own */
+  .statbar-label { display: flex; align-items: center; flex: none; padding: 0 24px; font-size: .65rem; color: #BFCFDD; background: #101828; border-right: 1px solid rgba(255,255,255,.12); white-space: nowrap; position: relative; z-index: 1; }
   .statbar-track { display: flex; align-items: center; width: max-content; animation: marq 30s linear infinite; }
   .statbar:hover .statbar-track { animation-play-state: paused; }
   .statbar-group { display: flex; align-items: center; flex: none; }
@@ -84,6 +86,8 @@
   .cloud .cloud-chip:hover img {                                          /* the hovered one lights up + pops */
     opacity: 1; transform: scale(1.5); filter: grayscale(0) drop-shadow(0 10px 18px rgba(15,23,42,.35)); }
   @keyframes floatBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+  /* venture/event logos run larger than the partner-company set */
+  #venturesCloud img { height: 92px; max-width: 280px; }
 
   /* ---- backdrop: clean blue-space (nebula glow + subtle stars, framed by a vignette) ---- */
   #heroStars { background-image:url("assets/stars-far.png"),url("assets/stars-near.png"); background-repeat:repeat; background-size:560px 560px,820px 820px; opacity:.3; }
@@ -175,7 +179,7 @@
 </nav>
 
 <!-- HERO — phoenix logo bursts in over a preserved blue-space backdrop, then shrinks on scroll -->
-<div id="heroTrack" class="relative" style="height:220vh;">
+<div id="heroTrack" class="relative" style="height:160vh;">
   <div class="sticky top-0 h-screen w-full overflow-hidden">
     <!-- preserved blue-space backdrop: nebula glow + subtle stars + vignette (no phoenix) -->
     <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('assets/hero-bg-blur.jpg');"></div>
@@ -201,7 +205,9 @@
 <div class="cosmic">
 
   <!-- CHAPTER RESULTS — scrolling success stats, directly below the landing logo -->
-  <div class="statbar marq" aria-label="Chapter results">
+  <div class="statbar" aria-label="Miami chapter results">
+    <div class="statbar-label label">Miami Chapter</div>
+    <div class="marq flex-1">
     <div class="statbar-track">
       <div class="statbar-group">
         <span class="stat-item"><b>17</b><span>Ventures Started</span></span><span class="stat-dot" aria-hidden="true"></span>
@@ -216,14 +222,15 @@
         <span class="stat-item"><b>$310k+</b><span>Total Revenue</span></span><span class="stat-dot"></span>
       </div>
     </div>
+    </div>
   </div>
 
   <!-- PIECE 1 — TAKE A CHANCE (text left, Ventures cloud right) -->
-  <section class="max-w-6xl mx-auto px-6 pt-32 pb-28 grid lg:grid-cols-2 gap-14 items-center">
+  <section class="max-w-6xl mx-auto px-6 pt-20 pb-16 grid lg:grid-cols-2 gap-14 items-center">
     <div class="reveal">
       <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Take a<br/><span class="text-pop">chance</span></h2>
       <p class="mt-7 text-lg text-charcoal leading-relaxed max-w-lg">
-        When you're a student, shots on goal is a more valuable metric than goals scored — so we challenge you to grow your skills, connect with professionals, and gain experience through action, <span class="text-midnight font-semibold">not theory</span>. We provide the resources, mentorship, and a community of like-minded builders who push you to be better.
+        When you're a student, shots on goal are a more valuable metric than goals scored — so we challenge you to grow your skills, connect with professionals, and gain experience through action, <span class="text-midnight font-semibold">not theory</span>. We provide the resources, mentorship, and a community of like-minded builders who push you to be better.
       </p>
     </div>
     <div class="reveal flex flex-col items-center">
@@ -234,59 +241,41 @@
     </div>
   </section>
 
-  <!-- PIECE 2 — FIND YOUR COMMUNITY (photos left, text right) -->
-  <section class="max-w-6xl mx-auto px-6 py-28 grid lg:grid-cols-2 gap-14 items-center">
-    <div class="reveal order-2 lg:order-1 relative mx-auto w-full max-w-[540px] h-[470px] sm:h-[540px]">
-      <!-- night-glow squiggles, lines, sparkle stars, brackets & spirals -->
-      <svg class="absolute inset-0 w-full h-full pointer-events-none overflow-visible" viewBox="0 0 540 540" fill="none" aria-hidden="true">
-        <path d="M26,52 q14,-18 28,0 t28,0 t28,0 t28,0" stroke="#A7B6C5" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M505,46 C448,30 405,46 384,78" stroke="#516B84" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M384,78 l18,-7 M384,78 l9,18" stroke="#516B84" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M500,104 C503,120 510,127 526,130 C510,133 503,140 500,156 C497,140 490,133 474,130 C490,127 497,120 500,104 Z" fill="#A7B6C5"/>
-        <path d="M48,300 C50,310 55,315 65,317 C55,319 50,324 48,334 C46,324 41,319 31,317 C41,315 46,310 48,300 Z" fill="#BFCFDD"/>
-        <path d="M120,150 h-26 v26 M420,150 h26 v26 M120,498 h-26 v-26 M420,498 h26 v-26" stroke="#516B84" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M470,470 c0,-14 -20,-16 -24,-3 c-5,16 18,22 28,8 c11,-15 -8,-34 -27,-28" stroke="#A7B6C5" stroke-width="2.4" stroke-linecap="round"/>
-        <path d="M150,524 q18,-14 36,0 t36,0 t36,0" stroke="#A7B6C5" stroke-width="2.4" stroke-linecap="round"/>
-        <circle cx="70" cy="120" r="2.6" fill="#516B84"/>
-        <circle cx="500" cy="360" r="2.6" fill="#A7B6C5"/>
-        <circle cx="60" cy="470" r="2.2" fill="#516B84"/>
-      </svg>
-      <img src="assets/community/20260511_181827_4D0F8C.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-white transition-transform duration-300 hover:z-10" style="left:3%;top:24px;width:56%;height:190px;transform:rotate(-3deg);z-index:2;box-shadow:0 12px 30px rgba(16,24,40,.18);"/>
-      <img src="assets/community/20260422_074954_4E1929.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-white transition-transform duration-300 hover:z-10" style="right:2%;top:64px;width:42%;height:150px;transform:rotate(4deg);z-index:3;box-shadow:0 12px 30px rgba(16,24,40,.18);"/>
-      <img src="assets/community/20260429_214338_42EDFE.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-white transition-transform duration-300 hover:z-10" style="left:4%;top:228px;width:44%;height:150px;transform:rotate(-5deg);z-index:4;box-shadow:0 12px 30px rgba(16,24,40,.18);"/>
-      <img src="assets/community/20260511_181827_4A2EBF.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-white transition-transform duration-300 hover:z-10" style="right:3%;bottom:18px;width:60%;height:185px;transform:rotate(2deg);z-index:3;box-shadow:0 12px 30px rgba(16,24,40,.18);"/>
-    </div>
-    <div class="reveal order-1 lg:order-2">
-      <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Find your<br/><span class="text-pop">community</span></h2>
-      <p class="mt-7 text-lg text-charcoal leading-relaxed max-w-lg">
-        We pull together Miami's most driven builders and creatives to form real friendships that last long after graduation. Members push each other, share what they're learning, and make entrepreneurship feel concrete. With small recruitment classes, we ensure deep connection between members and purposeful relationships.
-      </p>
-    </div>
-  </section>
-
-  <!-- PIECE 3 — GROW YOUR CAREER (text left) -->
-  <section class="max-w-6xl mx-auto px-6 py-28 grid lg:grid-cols-2 gap-14 items-center">
+  <!-- PIECE 2 — FIND YOUR COMMUNITY · GROW YOUR CAREER (one tight two-column section) -->
+  <section class="max-w-6xl mx-auto px-6 py-16 grid lg:grid-cols-2 gap-14 items-start">
     <div class="reveal">
-      <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Grow your<br/><span class="text-pop">career</span></h2>
-      <p class="mt-7 text-lg text-charcoal leading-relaxed max-w-lg">
-        Realize your career ambitions and gain an unfair advantage through your skills, network, and experience. By offering opportunities like internships and co-ops as soon as you step foot on campus, we aim to gain as much experience as possible.
+      <h2 class="text-4xl md:text-5xl font-black tracking-tight leading-[1.02]">Find your<br/><span class="text-pop">community</span></h2>
+      <p class="mt-6 text-lg text-charcoal leading-relaxed max-w-lg">
+        We bring together Miami's builders and creatives to form real friendships that last long after graduation. Members push each other, share what they're learning, and make entrepreneurship feel concrete. With small recruitment classes, we ensure deep connection between members and purposeful relationships.
       </p>
+      <div class="mt-8 grid grid-cols-2 gap-3">
+        <img src="assets/community/20260511_181827_4D0F8C.jpg" alt="SEPi community" class="rounded-xl object-cover w-full h-36 sm:h-44 border border-white shadow-[0_12px_30px_rgba(16,24,40,.14)]"/>
+        <img src="assets/community/20260422_074954_4E1929.jpg" alt="SEPi community" class="rounded-xl object-cover w-full h-36 sm:h-44 border border-white shadow-[0_12px_30px_rgba(16,24,40,.14)]"/>
+        <img src="assets/community/20260429_214338_42EDFE.jpg" alt="SEPi community" class="rounded-xl object-cover w-full h-36 sm:h-44 border border-white shadow-[0_12px_30px_rgba(16,24,40,.14)]"/>
+        <img src="assets/community/20260511_181827_4A2EBF.jpg" alt="SEPi community" class="rounded-xl object-cover w-full h-36 sm:h-44 border border-white shadow-[0_12px_30px_rgba(16,24,40,.14)]"/>
+      </div>
     </div>
-    <div class="reveal flex flex-col items-center">
-      <h3 class="space-title text-2xl md:text-3xl mb-6">Where we work</h3>
-      <div class="cloud w-full max-w-lg">
-        <div id="worksCloud" class="cloud-logos"></div>
+    <div class="reveal">
+      <h2 class="text-4xl md:text-5xl font-black tracking-tight leading-[1.02]">Grow your<br/><span class="text-pop">career</span></h2>
+      <p class="mt-6 text-lg text-charcoal leading-relaxed max-w-lg">
+        Gain a head start through internships, co-ops, and a professional network you start building day one — whether you're launching a venture or building a career in industry.
+      </p>
+      <div class="mt-8">
+        <h3 class="space-title text-xl md:text-2xl mb-4 text-center">Where we work</h3>
+        <div class="cloud w-full">
+          <div id="worksCloud" class="cloud-logos"></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SEE OUR SUCCESS -->
-  <section class="py-28 px-6 border-t hairline">
+  <!-- CLOSING CTA -->
+  <section class="py-20 px-6 border-t hairline">
     <div class="max-w-5xl mx-auto text-center">
-      <h2 class="reveal text-4xl md:text-6xl font-black tracking-tight">See our <span class="text-pop">Success</span></h2>
+      <h2 class="reveal text-4xl md:text-6xl font-black tracking-tight">Ready to <span class="text-pop">start</span>?</h2>
 
-      <div class="reveal mt-16">
-        <a href="recruitment.html" class="glow-btn inline-block label text-sm px-14 py-5 rounded-full bg-phoenix text-white hover:bg-phoenix-bright transition-all">Join the Fun</a>
+      <div class="reveal mt-10">
+        <a href="recruitment.html" class="glow-btn inline-block label text-sm px-14 py-5 rounded-full bg-phoenix text-white hover:bg-phoenix-bright transition-all">Apply for Fall 2026</a>
       </div>
     </div>
   </section>
@@ -389,12 +378,22 @@
 </script>
 
 <script>
-  // company logos: member-built ventures + where members work
+  // company logos: member-built ventures + where members work (partner logos link out)
   const VENTURES = ["aia","bored-ape-racket","chores","flexform","founders-fair","huzzsco","noal","rackramp","pepti-ai"];
-  const WORKED = ["cintrifuse","cleveland-clinic","cursor","gallagher","medtronic","pieces","spirair"];
-  const cloudChip = n => `<div class="cloud-chip" style="--dur:${(5+Math.random()*3).toFixed(2)}s;--delay:${(Math.random()*4).toFixed(2)}s"><img src="assets/logos/${n}.png" alt=""/></div>`;
+  const WORKED = [
+    { n: "cintrifuse",       name: "Cintrifuse",       url: "https://cintrifuse.com" },
+    { n: "cleveland-clinic", name: "Cleveland Clinic", url: "https://my.clevelandclinic.org" },
+    { n: "cursor",           name: "Cursor",           url: "https://cursor.com" },
+    { n: "gallagher",        name: "Gallagher",        url: "https://www.ajg.com" },
+    { n: "medtronic",        name: "Medtronic",        url: "https://www.medtronic.com/en-us/index.html" },
+    { n: "pieces",           name: "Pieces",           url: "https://pieces.app" },
+    { n: "spirair",          name: "Spirit Air",       url: "https://spirair.com" },
+  ];
+  const bob = () => `style="--dur:${(5+Math.random()*3).toFixed(2)}s;--delay:${(Math.random()*4).toFixed(2)}s"`;
+  const cloudChip = n => `<div class="cloud-chip" ${bob()}><img src="assets/logos/${n}.png" alt=""/></div>`;
+  const linkChip = c => `<a class="cloud-chip" ${bob()} href="${c.url}" target="_blank" rel="noopener noreferrer" aria-label="${c.name}"><img src="assets/logos/${c.n}.png" alt="${c.name}"/></a>`;
   document.getElementById("venturesCloud").innerHTML = VENTURES.map(cloudChip).join("");
-  document.getElementById("worksCloud").innerHTML = WORKED.map(cloudChip).join("");
+  document.getElementById("worksCloud").innerHTML = WORKED.map(linkChip).join("");
 
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
   document.querySelectorAll(".reveal").forEach(el => io.observe(el));

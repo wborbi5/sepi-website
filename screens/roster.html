@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Sigma Eta Pi | Roster</title>
+<title>Sigma Eta Pi | People</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
@@ -45,7 +45,7 @@
   .member-card { position: absolute; inset: 0; border-radius: 16px; overflow: hidden;
     background: linear-gradient(165deg, #101828 0%, #1F3A5F 60%, #516B84 100%);
     box-shadow: 0 12px 32px rgba(16,24,40,.22), inset 0 0 0 1px rgba(255,255,255,.07); transition: box-shadow .35s ease; }
-  .member-photo { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 100%; height: 100%; max-width: none;
+  .member-photo { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 90%; height: 96%; max-width: none;
     object-fit: contain; object-position: bottom; filter: drop-shadow(0 8px 18px rgba(16,24,40,.35)); }
   .member:hover .member-card { box-shadow: 0 22px 54px rgba(31,58,95,.4), inset 0 0 0 1px rgba(167,182,197,.65); }
   /* founder company badge — sits inside the bottom-right corner of the card */
@@ -103,8 +103,8 @@
 <!-- HEADER -->
 <header class="pt-40 pb-12 px-6 text-center">
   <div class="max-w-4xl mx-auto">
-    <p class="label text-[11px] text-pop mb-5">Our Community</p>
-    <h1 class="text-6xl md:text-8xl font-black tracking-tight leading-[0.9]">One Family</h1>
+    <p class="label text-[11px] text-pop mb-5">One Family</p>
+    <h1 class="text-6xl md:text-8xl font-black tracking-tight leading-[0.9]">People</h1>
     <p class="mt-6 text-lg text-steel max-w-xl mx-auto">Meet the people building Sigma Eta Pi at Miami University.</p>
     <div class="mt-10 flex items-center justify-center gap-3">
       <button id="tabExec" class="tab tab-active">Executive Board</button>
@@ -161,6 +161,7 @@
     // Sophomores — Class of 2028
     { f: "Jayden", l: "Huszczo", grad: 2028, img: "assets/headshots/jayden-huszczo.png", li: "https://www.linkedin.com/in/jayden-huszczo/", ig: "jayden.huszczo", co: "huzzsco" },
     { f: "Johnny", l: "Spicer", grad: 2028, img: "assets/headshots/johnny-spicer.png", li: "https://www.linkedin.com/in/jonathan-spicer1/", co: "chores" },
+    // TODO: Andy's current headshot is unusable — replace it when the new professional photo set arrives from Olivia/Kylie.
     { f: "Andy", l: "Robbins", grad: 2028, img: "assets/headshots/andy-robbins.png", li: "https://www.linkedin.com/in/andy-robbins/", co: "aia" },
     { f: "Aidan", l: "Zarski", grad: 2028, img: "assets/headshots/aidan-zarski.png", li: "https://www.linkedin.com/in/aidan-zarski-657452267/", co: "noal" },
     { f: "Aidan", l: "Allshouse", grad: 2028, li: "https://www.linkedin.com/in/adian-allshouse/" },
@@ -170,7 +171,9 @@
     { f: "Brandon", l: "Gonzalez Ramirez", grad: 2028, role: "VP of Finance", img: "assets/headshots/brandon-gonzalez-ramirez.png", li: "https://www.linkedin.com/in/brandon-ramirez-gonzalez/", ig: "brandon.ramirezs" },
     { f: "AJ", l: "Pecka", grad: 2028, img: "assets/headshots/aj-pecka.png", li: "https://www.linkedin.com/in/anthony-pecka/" },
     // Freshmen — Class of 2029
+    // TODO: Wyatt's headshot needs a cleanup pass (background removal/cropping) once the new photo set arrives.
     { f: "Wyatt", l: "Borbi", grad: 2029, role: "Co-President", img: "assets/headshots/wyatt-borbi.png", li: "https://www.linkedin.com/in/wyatt-borbi/", ig: "wborbi5" },
+    // TODO: Madison's headshot needs a cleanup pass (background removal/cropping) once the new photo set arrives.
     { f: "Madison", l: "Repass", grad: 2029, role: "Co-President", img: "assets/headshots/madison-repass.png", li: "https://www.linkedin.com/in/madison-repass/", ig: "mads4osu" },
     { f: "Sam", l: "Yeh", grad: 2029, li: "https://www.linkedin.com/in/samheyyeh/", ig: "yeh4sam", co: "flexform" },
     { f: "Zak", l: "Amedia", grad: 2029, img: "assets/headshots/zak-amedia.png", li: "https://www.linkedin.com/in/zakarie-amedia-586282381/", ig: "zakarieamedia", co: "pepti-ai" },

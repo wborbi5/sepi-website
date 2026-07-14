@@ -39,10 +39,6 @@
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
   .reveal.in { opacity: 1; transform: none; }
 
-  /* glass panels — Midnight card for the mini-game (canvas starfield stays legible) */
-  .glass { background: #101828; border: 1px solid #1F3A5F;
-    box-shadow: 0 24px 60px rgba(16,24,40,0.25); }
-
   /* section + hero headings — match the rest of the site (Inter, heavy, tight) */
   .space-title { font-weight: 900; letter-spacing: -0.02em; color: #101828; }
   header .space-title { color: #fff; }
@@ -57,31 +53,20 @@
     filter: blur(6px); animation: spin 70s linear infinite; }
   @keyframes spin { to { transform:translate(-50%,-50%) rotate(360deg); } }
 
-  /* ===== PLAYING CARDS (values) — static cards with a simple hover lift ===== */
+  /* ===== VALUE CARDS — static cards with a simple hover lift ===== */
   .pcard { position: relative; width: 100%; aspect-ratio: 5 / 7; text-align: left; border-radius: 18px; overflow: hidden;
     border: 1px solid #D1D5DB; background: linear-gradient(180deg, #FFFFFF, #F8FAFC);
     box-shadow: 0 18px 40px rgba(16,24,40,.18);
     display: flex; flex-direction: column; padding: 48px 20px 40px;
     transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
   .pcard:hover { transform: translateY(-8px); box-shadow: 0 26px 54px rgba(16,24,40,.26); border-color: #A7B6C5; }
-  .pip { position:absolute; font-size: 1.05rem; font-weight: 800; line-height: 1; text-align:center; }
-  .pip .s { display:block; font-size: .95rem; margin-top: 2px; }
-  .pip.tl { top: 12px; left: 13px; }
-  .pip.br { bottom: 12px; right: 13px; transform: rotate(180deg); }
-  .pcard .suit { font-size: 1.5rem; line-height:1; }
   .pcard h3 { font-weight:900; letter-spacing:-0.01em; }
   .pcard p { color: #374151; font-size: .92rem; line-height: 1.5; overflow:auto; }
   .pcard p::-webkit-scrollbar { width:4px; } .pcard p::-webkit-scrollbar-thumb { background:#D1D5DB; border-radius:2px; }
-  .suit-red { color:#9E4A4A; } .suit-blue { color:#1b2a8c; }
 
   /* drop cap for the long About paragraph */
   .dropcap::first-letter { font-family:"Fraunces",serif; font-weight:600; font-size:3.6rem; line-height:.8; float:left;
     padding:8px 14px 0 0; color:#1b2a8c; }
-
-  /* ===== mini-game ===== */
-  #gameWrap { position:relative; border-radius:20px; overflow:hidden; }
-  #game { display:block; width:100%; height:300px; cursor: crosshair; touch-action: manipulation; }
-  .game-hud { position:absolute; top:14px; left:16px; right:16px; display:flex; justify-content:space-between; align-items:center; pointer-events:none; z-index:2; }
 
   /* ===== sparks ===== */
   .shooting-star { position:absolute; width:130px; height:2px; border-radius:2px; opacity:0; z-index:1; pointer-events:none;
@@ -90,15 +75,6 @@
   .shooting-star.s1 { top:16%; left:-12%; animation: shoot 7s ease-in 2s infinite; }
   .shooting-star.s2 { top:34%; left:-12%; animation: shoot 9s ease-in 5.5s infinite; }
   @keyframes shoot { 0%{opacity:0;transform:translate(0,0) rotate(16deg);} 5%{opacity:1;} 22%{opacity:0;transform:translate(78vw,24vh) rotate(16deg);} 100%{opacity:0;} }
-
-  /* ===== game extras: level bar + level-up toast ===== */
-  .game-bar { position:absolute; left:0; right:0; bottom:0; height:4px; background:rgba(255,255,255,.08); z-index:2; }
-  .game-bar span { display:block; height:100%; width:0; border-radius:0 3px 3px 0;
-    background:linear-gradient(90deg,#1F3A5F,#A7B6C5); box-shadow:0 0 12px rgba(167,182,197,.6); transition: width .25s ease; }
-  .level-toast { position:absolute; left:50%; top:44%; transform:translate(-50%,-50%); z-index:3; pointer-events:none; opacity:0;
-    font-weight:900; letter-spacing:-.01em; text-align:center; color:#fff; text-shadow:0 0 26px rgba(31,58,95,.95); }
-  .level-toast.show { animation: toastPop 1.5s ease forwards; }
-  @keyframes toastPop { 0%{opacity:0;transform:translate(-50%,-50%) scale(.7);} 16%{opacity:1;transform:translate(-50%,-50%) scale(1.06);} 72%{opacity:1;} 100%{opacity:0;transform:translate(-50%,-64%) scale(1);} }
 
   /* ===== scattered photos (home-style collage) ===== */
   .gphoto { position:absolute; border-radius:14px; object-fit:cover; border:1px solid #FFFFFF;
@@ -132,7 +108,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity:1; transform:none; transition:none; }
-    .galaxy::before, .nav-fade, .shooting-star, .level-toast.show, .pmarq-track { animation: none; }
+    .galaxy::before, .nav-fade, .shooting-star, .pmarq-track { animation: none; }
   }
 </style>
 </head>
@@ -172,21 +148,22 @@
   <div class="relative z-10 max-w-4xl mx-auto">
     <h1 class="space-title text-5xl sm:text-7xl lg:text-8xl leading-[0.95]">Sigma Eta Pi</h1>
     <p class="mt-8 text-lg sm:text-xl text-white/80 leading-relaxed max-w-3xl mx-auto">
-      Sigma Eta Pi was founded in 2010 at UCLA as the first co-ed entrepreneurship fraternity, built to transform students into <span class="acc">starters</span> who follow their passions, build lasting relationships, and create real value through innovation. Today, members across 11 chapters have raised more than <span class="acc">$1.24B</span> in funding and launched <span class="acc">100+ ventures</span>.
+      Sigma Eta Pi was founded in 2010 at UCLA as the first co-ed entrepreneurship fraternity, built to transform students into <span class="acc">starters</span> who build lasting relationships and create real value through innovation. Today, members across 11 chapters have raised more than <span class="acc">$1.24B</span> in funding and launched <span class="acc">100+ ventures</span>.
     </p>
 
-    <!-- live-counting stats -->
-    <div class="mt-8 grid grid-cols-3 gap-4 sm:gap-10 max-w-3xl mx-auto">
+    <!-- live-counting stats — markup holds the final values as a static fallback; the counter script animates up from 0 when it runs -->
+    <p class="label text-[10px] sm:text-[11px] text-powder mt-10">Sigma Eta Pi National · All 11 Chapters</p>
+    <div class="mt-5 grid grid-cols-3 gap-4 sm:gap-10 max-w-3xl mx-auto">
       <div class="px-2">
-        <div class="text-2xl sm:text-4xl md:text-5xl font-black text-glow"><span data-count="1.24" data-prefix="$" data-suffix="B" data-decimals="2">0</span></div>
+        <div class="text-2xl sm:text-4xl md:text-5xl font-black text-glow"><span data-count="1.24" data-prefix="$" data-suffix="B" data-decimals="2">$1.24B</span></div>
         <p class="label text-[9px] sm:text-[10px] text-white/45 mt-3">Raised in funding</p>
       </div>
       <div class="px-2">
-        <div class="text-2xl sm:text-4xl md:text-5xl font-black text-powder text-glow"><span data-count="11">0</span></div>
+        <div class="text-2xl sm:text-4xl md:text-5xl font-black text-powder text-glow"><span data-count="11">11</span></div>
         <p class="label text-[9px] sm:text-[10px] text-white/45 mt-3">Chapters</p>
       </div>
       <div class="px-2">
-        <div class="text-2xl sm:text-4xl md:text-5xl font-black text-powder text-glow"><span data-count="100" data-suffix="+">0</span></div>
+        <div class="text-2xl sm:text-4xl md:text-5xl font-black text-powder text-glow"><span data-count="100" data-suffix="+">100+</span></div>
         <p class="label text-[9px] sm:text-[10px] text-white/45 mt-3">Ventures launched</p>
       </div>
     </div>
@@ -209,7 +186,7 @@
         <div class="flex-1 h-px bg-gradient-to-r from-phoenix/60 to-transparent"></div>
       </div>
       <p class="reveal dropcap text-lg text-charcoal leading-relaxed">
-        Sigma Eta Pi at Miami University is an <span class="acc font-semibold">innovation factory</span>. We take the most ambitious, creative, and driven students on campus, put them in a room together, and build the kind of people who go on to run great companies. We are not a club that talks about entrepreneurship. We learn it by doing: shipping real products, talking to real customers, and generating real revenue long before we call something an idea. But ambition is only half of it. We love the work and we love the life around it, the friendships, the late nights, the small wins celebrated loudly. SEPi is where the people who chart their own course find each other early, learn fast, take smart risks, and push each other to act.
+        Sigma Eta Pi at Miami University is a co-ed entrepreneurship fraternity of <span class="acc font-semibold">27 members</span> who learn by doing: shipping real products, talking to real customers, and generating real revenue long before we call something an idea. We are not a club that talks about entrepreneurship — we practice it. But the work is only half of it. We love the life around it too: the friendships, the late nights, the small wins celebrated loudly. SEPi is where the people who chart their own course find each other early, learn fast, take smart risks, and push each other to act.
       </p>
     </div>
     <!-- glowing photo cluster + night-glow doodles -->
@@ -239,7 +216,7 @@
       <div class="flex-1 h-px bg-gradient-to-r from-phoenix/60 to-transparent"></div>
     </div>
     <p class="reveal text-lg md:text-xl text-charcoal leading-relaxed">
-      Our mission at Miami SEPi is to turn ambitious students into <span class="acc">founders and builders</span> by removing every excuse not to start. We make building a company <span class="acc">borderline frictionless</span>, we surround our members with mentors and friends who refuse to let them coast, and we measure success not by status but by <span class="acc">purpose</span>, by attempts taken, and by who our people become along the way.
+      Our mission at Miami SEPi is simple: get students <span class="acc">starting early</span>. Whether that means launching a venture or building the skills and network that carry a career, we remove the friction to begin, surround members with mentors and friends who won't let them coast, and measure success by <span class="acc">attempts taken</span> — and by who our people become along the way.
     </p>
   </div>
 </section>
@@ -274,7 +251,7 @@
   </div>
 </section>
 
-<!-- ===== OUR VALUES — four aces, flip to reveal ===== -->
+<!-- ===== OUR VALUES — hover-lift cards ===== -->
 <section class="py-24 px-6">
   <div class="max-w-6xl mx-auto">
     <div class="reveal text-center mb-12">
@@ -282,36 +259,6 @@
     </div>
 
     <div id="deck" class="deck grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 max-w-5xl mx-auto"></div>
-  </div>
-</section>
-
-<!-- ===== MINI-GAME — Grit: chase the yes (secondary, informational) ===== -->
-<section class="py-24 px-6">
-  <div class="max-w-5xl mx-auto">
-    <div class="reveal flex items-center gap-4 mb-8">
-      <h2 class="space-title text-2xl md:text-3xl">Chase the <span class="text-phoenix-bright">Yes</span></h2>
-      <div class="flex-1 h-px bg-gradient-to-r from-phoenix/60 to-transparent"></div>
-    </div>
-    <div class="grid lg:grid-cols-5 gap-8 items-start">
-      <div class="reveal lg:col-span-2">
-        <p class="text-charcoal leading-relaxed">
-          A small embodiment of <span class="acc">Grit</span>: every "no" is just the rep before the next "yes." Knock the ships down, stack your yeses, and climb the founder ranks.
-        </p>
-        <p class="text-steel text-sm leading-relaxed mt-4">
-          Dreamer → Builder → Closer → Operator → Founder → Visionary → Titan → Legend. Each level the ships fly faster and turn more erratically — getting past <span class="text-midnight font-semibold">Legend</span> is nearly impossible. Clear level 9 and you win.
-        </p>
-        <p class="label text-[11px] text-steel mt-6">Click / tap a ship to fire</p>
-      </div>
-      <div id="gameWrap" class="reveal glass lg:col-span-3">
-        <div class="game-hud">
-          <span class="label text-[11px] text-white/70">LVL <span id="level" class="text-phoenix-bright">1</span> · <span id="rank" class="text-white/90">Dreamer</span></span>
-          <span class="label text-[11px] text-white/70">YESES <span id="score" class="text-phoenix-bright">0</span></span>
-        </div>
-        <div id="levelToast" class="level-toast"></div>
-        <canvas id="game"></canvas>
-        <div class="game-bar"><span id="levelFill"></span></div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -372,24 +319,21 @@
     once.observe(el);
   });
 
-  /* ---------- VALUES: four aces ---------- */
+  /* ---------- VALUES ---------- */
   const VALUES = [
-    { suit: "♠", name: "Execution", cls: "suit-blue",
-      body: "The most defensible thing you can build is proof that you tried. We value action over talk, shipping over planning, and real revenue over good ideas. The best way to learn to sell is to sell. The best way to build with AI is to build." },
-    { suit: "♥", name: "Brotherhood", cls: "suit-red",
-      body: "We are a community before we are a résumé line. Networking is just conversations that turn into friendships and partnerships, and we would rather go to bat for a close friend than impress a stranger. Finding the balance between community and accomplishment is the whole point." },
-    { suit: "♦", name: "Purpose", cls: "suit-red",
-      body: "We play the infinite game. Status fades and short-term goals run out, so we run on purpose instead. Our members are measured by their growth, not their current standing, because there is always tomorrow and always another spin." },
-    { suit: "♣", name: "Grit", cls: "suit-blue",
-      body: "You are only so many no's away from your first yes. We embrace failure as the fastest way to learn, we perform with no one watching, and we do the extra rep. We hate to lose." },
+    { name: "Execution",
+      body: "Action over talk. Whether it's a product, a pitch, or a first internship, the fastest way to learn is to do the work and ship it." },
+    { name: "Brotherhood",
+      body: "We are a community before we are a résumé line. Members go to bat for each other — in class, in business, and long after graduation." },
+    { name: "Purpose",
+      body: "Status fades and short-term goals run out. We measure members by their growth, not their current standing." },
+    { name: "Grit",
+      body: "Every \"no\" is a rep. We treat failure as the fastest way to learn, do the extra work when no one is watching, and hate to lose." },
   ];
   const deck = document.getElementById("deck");
   deck.innerHTML = VALUES.map((v, i) => `
     <div class="pcard reveal" style="transition-delay:${i * 90}ms">
-      <span class="pip tl ${v.cls}">A<span class="s">${v.suit}</span></span>
-      <span class="pip br ${v.cls}">A<span class="s">${v.suit}</span></span>
       <div class="flex items-center gap-3 mb-3">
-        <span class="suit ${v.cls}">${v.suit}</span>
         <h3 class="text-xl text-midnight">${v.name}</h3>
       </div>
       <div class="h-px bg-stone mb-4"></div>
@@ -398,122 +342,6 @@
   // re-observe newly created reveal cards
   deck.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
-  /* ---------- MINI-GAME: chase the yes (ramping chaos, finite — win at L9) ---------- */
-  (function () {
-    const cv = document.getElementById("game"), ctx = cv.getContext("2d");
-    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const scoreEl = document.getElementById("score"), levelEl = document.getElementById("level"),
-          rankEl = document.getElementById("rank"), fillEl = document.getElementById("levelFill"),
-          toastEl = document.getElementById("levelToast");
-    const RANKS = ["Dreamer", "Builder", "Closer", "Operator", "Founder", "Visionary", "Titan", "Legend"];
-    const PER_LEVEL = 4;   // yeses to clear each level
-    const WIN_LEVEL = 9;   // reach level 9 -> you win
-    let W = 0, H = 0, dpr = Math.min(devicePixelRatio || 1, 2);
-    function size() { const r = cv.getBoundingClientRect(); W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
-    size(); addEventListener("resize", size);
-
-    const stars = Array.from({ length: 70 }, () => ({ x: Math.random(), y: Math.random(), z: Math.random() * .8 + .2 }));
-    let ships = [], bursts = [], pops = [], score = 0, level = 1, won = false, last = performance.now(), spawnT = 0;
-
-    const speedMul = () => 1 + (level - 1) * 0.34;          // way faster each level
-    const maxShips = () => Math.round(4 + level * 1.4);
-    const rankFor = (l) => RANKS[Math.min(l - 1, RANKS.length - 1)];
-    function updateBar() { const within = score - (level - 1) * PER_LEVEL; fillEl.style.width = Math.max(0, Math.min(within / PER_LEVEL, 1)) * 100 + "%"; }
-    function toast(msg) { if (reduce) return; toastEl.innerHTML = msg; toastEl.classList.remove("show"); void toastEl.offsetWidth; toastEl.classList.add("show"); }
-    function burst(x, y) { for (let i = 0; i < 16; i++) { const a = Math.random() * 7, sp = 40 + Math.random() * 120; bursts.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 1 }); } }
-    function win() { won = true; level = WIN_LEVEL; ships = []; levelEl.textContent = WIN_LEVEL; rankEl.textContent = "Champion"; fillEl.style.width = "100%"; for (let k = 0; k < 6; k++) burst(W * (.25 + Math.random() * .5), H * (.25 + Math.random() * .5)); }
-    function checkLevel() {
-      while (!won && score >= level * PER_LEVEL) {
-        level++;
-        if (level >= WIN_LEVEL) { win(); return; }
-        levelEl.textContent = level; rankEl.textContent = rankFor(level);
-        toast('<div class="label text-phoenix-bright" style="font-size:.62rem">LEVEL ' + level + '</div><div style="font-size:1.5rem">' + rankFor(level) + '</div>');
-      }
-      updateBar();
-    }
-
-    function spawn() {
-      const fromLeft = Math.random() < .5;
-      const baseY = 36 + Math.random() * (H - 72);
-      const sp = (38 + Math.random() * 50) * speedMul();
-      ships.push({
-        x: fromLeft ? -40 : W + 40, baseY, y: baseY, vx: fromLeft ? sp : -sp, dir: fromLeft ? 1 : -1,
-        r: (15 + Math.random() * 8) * Math.max(1 - (level - 1) * 0.045, 0.62),       // smaller (harder) at high levels
-        t: Math.random() * 6,
-        amp: level >= 3 ? (14 + Math.random() * 24) * (1 + (level - 3) * 0.22) : 0,   // vertical weave from L3
-        freq: 1.6 + Math.random() * 1.4 + level * 0.22,
-        flip: level >= 5 ? (0.3 + Math.random() * 0.6) : Infinity,                     // zigzag direction flips from L5
-        flipT: level >= 5 ? (0.3 + Math.random() * 0.6) : Infinity
-      });
-    }
-    function ship(s) {
-      ctx.save(); ctx.translate(s.x, s.y); ctx.scale(s.dir, 1);
-      ctx.shadowColor = "rgba(96,165,250,.9)"; ctx.shadowBlur = 16;
-      ctx.fillStyle = "#bfdbfe"; ctx.beginPath();
-      ctx.moveTo(s.r, 0); ctx.lineTo(-s.r * .7, -s.r * .7); ctx.lineTo(-s.r * .3, 0); ctx.lineTo(-s.r * .7, s.r * .7); ctx.closePath(); ctx.fill();
-      ctx.shadowBlur = 0; ctx.fillStyle = "rgba(37,99,235,.9)"; ctx.beginPath(); ctx.arc(-s.r * .1, 0, s.r * .26, 0, 7); ctx.fill();
-      ctx.fillStyle = "rgba(125,180,255,.7)"; ctx.beginPath(); ctx.moveTo(-s.r * .7, -3); ctx.lineTo(-s.r * 1.3 - Math.random() * 6, 0); ctx.lineTo(-s.r * .7, 3); ctx.closePath(); ctx.fill();
-      ctx.restore();
-    }
-
-    function fire(e) {
-      if (won) return;
-      const r = cv.getBoundingClientRect();
-      const px = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
-      const py = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
-      let hit = -1, best = 9999;
-      ships.forEach((s, i) => { const d = Math.hypot(s.x - px, s.y - py); if (d < s.r + 16 && d < best) { best = d; hit = i; } });
-      if (hit >= 0) {
-        burst(ships[hit].x, ships[hit].y);
-        pops.push({ x: ships[hit].x, y: ships[hit].y, life: 1, txt: "YES!" });
-        ships.splice(hit, 1); score++; scoreEl.textContent = score; checkLevel();
-      } else { burst(px, py); } // a miss is still a rep
-    }
-    cv.addEventListener("click", fire);
-    cv.addEventListener("touchstart", (e) => { e.preventDefault(); fire(e); }, { passive: false });
-
-    function frame(now) {
-      const dt = Math.min((now - last) / 1000, .05); last = now;
-      ctx.clearRect(0, 0, W, H);
-      // starfield
-      stars.forEach((st) => { const x = st.x * W, y = st.y * H; ctx.globalAlpha = .25 + st.z * .6; ctx.fillStyle = st.z > .7 ? "#cfe0ff" : "#6f86c9"; ctx.fillRect(x, y, st.z * 2, st.z * 2); if (!reduce) { st.x -= st.z * .01 * dt * 6; if (st.x < 0) st.x = 1; } });
-      ctx.globalAlpha = 1;
-
-      if (!won) {
-        // spawn — cadence tightens each level
-        spawnT -= dt; if (spawnT <= 0 && ships.length < maxShips()) { spawn(); spawnT = (.8 + Math.random() * .6) / (1 + (level - 1) * 0.22); }
-        // move: drift + vertical weave (L3+) + zigzag flips (L5+)
-        ships.forEach((s) => {
-          if (!reduce) {
-            s.t += dt; s.x += s.vx * dt;
-            if (s.amp) s.y = Math.max(18, Math.min(H - 18, s.baseY + Math.sin(s.t * s.freq) * s.amp));
-            if (isFinite(s.flipT)) { s.flipT -= dt; if (s.flipT <= 0) { s.vx = -s.vx; s.dir = -s.dir; s.flipT = s.flip; } }
-          }
-          ship(s);
-        });
-        ships = ships.filter((s) => s.x > -70 && s.x < W + 70);
-      }
-
-      // bursts
-      bursts.forEach((b) => { b.x += b.vx * dt; b.y += b.vy * dt; b.vy += 60 * dt; b.life -= dt * 1.8; ctx.globalAlpha = Math.max(b.life, 0); ctx.fillStyle = "#dbeafe"; ctx.beginPath(); ctx.arc(b.x, b.y, 2.4, 0, 7); ctx.fill(); });
-      ctx.globalAlpha = 1; bursts = bursts.filter((b) => b.life > 0);
-      // "YES!" pops floating up from each hit
-      pops.forEach((p) => { p.life -= dt * 1.2; p.y -= dt * 38; ctx.globalAlpha = Math.max(p.life, 0); ctx.fillStyle = "#dbeafe"; ctx.font = "800 16px Karla, sans-serif"; ctx.textAlign = "center"; ctx.fillText(p.txt, p.x, p.y); });
-      ctx.globalAlpha = 1; pops = pops.filter((p) => p.life > 0);
-
-      if (won) {
-        if (!reduce && Math.random() < 0.12) burst(W * Math.random(), H * Math.random());
-        ctx.textAlign = "center"; ctx.fillStyle = "#fff"; ctx.shadowColor = "rgba(59,130,246,.9)"; ctx.shadowBlur = 24;
-        ctx.font = "600 44px Fraunces, serif"; ctx.fillText("YOU WIN!", W / 2, H / 2 - 2);
-        ctx.shadowBlur = 0; ctx.fillStyle = "rgba(255,255,255,.7)"; ctx.font = "600 14px Karla, sans-serif";
-        ctx.fillText("You went all the way — Legend cleared.", W / 2, H / 2 + 26);
-      }
-      requestAnimationFrame(frame);
-    }
-    updateBar();
-    spawn(); spawn();
-    requestAnimationFrame(frame);
-  })();
 </script>
 <script>
   /* mobile menu toggle */
