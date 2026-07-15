@@ -22,14 +22,6 @@
   .hairline { border-color: #D1D5DB; }
   footer .hairline, footer.hairline { border-color: rgba(255,255,255,0.14); }
 
-  /* HERO: medal photo as full background */
-  .hero { background-image: url("assets/hero-badge@3x.jpg"); background-size: cover; background-position: center; }
-  .hero-scrim {
-    background:
-      linear-gradient(90deg, rgba(4,6,15,.88) 0%, rgba(4,6,15,.55) 42%, rgba(4,6,15,.08) 70%, rgba(4,6,15,0) 100%),
-      linear-gradient(to bottom, rgba(4,6,15,.35) 0%, rgba(4,6,15,0) 28%, rgba(4,6,15,0) 62%, #04060f 100%);
-  }
-
   /* COSMIC: light brand canvas — Cloud White with faint navy tints through every section after the hero */
   .cosmic {
     position: relative;
@@ -52,8 +44,10 @@
   .chip img { height: 36px; width: auto; max-width: 260px; object-fit: contain; display: block; }
   .chip.full { width: 100%; }
 
-  /* CHAPTER RESULTS — scrolling stat bar directly below the landing hero */
-  .statbar { background: #101828; border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.08); }
+  /* CHAPTER RESULTS — scrolling stat bar directly below the landing logo */
+  .statbar { display: flex; align-items: stretch; background: #101828; border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.08); }
+  /* pinned label so the numbers read unambiguously as the Miami chapter's own */
+  .statbar-label { display: flex; align-items: center; flex: none; padding: 0 24px; font-size: .65rem; color: #BFCFDD; border-right: 1px solid rgba(255,255,255,.12); white-space: nowrap; position: relative; z-index: 1; }
   .statbar-track { display: flex; align-items: center; width: max-content; animation: marq 30s linear infinite; }
   .statbar:hover .statbar-track { animation-play-state: paused; }
   .statbar-group { display: flex; align-items: center; flex: none; }
@@ -84,48 +78,15 @@
   .cloud .cloud-chip:hover img {                                          /* the hovered one lights up + pops */
     opacity: 1; transform: scale(1.5); filter: grayscale(0) drop-shadow(0 10px 18px rgba(15,23,42,.35)); }
   @keyframes floatBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+  /* venture/event logos run larger than the partner-company set */
+  #venturesCloud img { height: 92px; max-width: 280px; }
 
-  /* ---- backdrop: clean blue-space (nebula glow + subtle stars, framed by a vignette) ---- */
-  #heroStars { background-image:url("assets/stars-far.png"),url("assets/stars-near.png"); background-repeat:repeat; background-size:560px 560px,820px 820px; opacity:.3; }
-  #heroVignette { background: radial-gradient(120% 90% at 50% 42%, transparent 38%, rgba(4,6,15,.55) 72%, #04060f 100%); }
+  /* hero: the navy primary mark eases in once, no motion after */
+  @keyframes heroIn { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+  .hero-in { animation: heroIn .9s cubic-bezier(.22,1,.36,1) both; animation-delay: var(--d,0s); }
 
-  /* ---- the phoenix: cool blue flare + mini-explosion entrance ---- */
-  #heroImg { position:relative; z-index:1; filter: drop-shadow(0 0 9px rgba(147,197,253,.8)) drop-shadow(0 0 34px rgba(37,99,235,.6)); }
-  #phoenixFlare {
-    position:absolute; left:50%; top:48%; width:122%; height:158%; transform:translate(-50%,-50%); z-index:0; pointer-events:none;
-    background: radial-gradient(closest-side, rgba(96,165,250,.55), rgba(37,99,235,.26) 46%, transparent 72%);
-    filter: blur(18px);
-  }
-  .boom-particle { display:none; }
-  @media (prefers-reduced-motion: no-preference) {
-    #heroStars { animation: heroTwinkle 7s ease-in-out infinite; }
-    #phoenixFlare { opacity:0; animation: flareIn 1.7s ease-out .7s forwards, flarePulse 5s ease-in-out 2.5s infinite; }
-    #heroImg { opacity:0; transform:scale(.62); animation: phoenixWarp 2s cubic-bezier(.2,.7,.12,1) .5s forwards; }
-    .boom-particle {
-      display:block; position:absolute; left:50%; top:50%; width:5px; height:5px; margin:-2.5px 0 0 -2.5px;
-      border-radius:50%; background:#dbeafe; box-shadow:0 0 7px 2px rgba(147,197,253,.9); opacity:0;
-      animation: dustIn 1.5s cubic-bezier(.32,0,.5,1) forwards;
-    }
-    /* the phoenix warps into focus from deep space: small + blurry -> sharp */
-    @keyframes phoenixWarp {
-      0%   { opacity:0; transform:scale(.62); filter:blur(16px) brightness(1.7) drop-shadow(0 0 0 rgba(96,165,250,0)); }
-      45%  { opacity:.7; }
-      80%  { transform:scale(1.03); filter:blur(0) brightness(1.25) drop-shadow(0 0 16px rgba(191,219,254,.95)) drop-shadow(0 0 50px rgba(37,99,235,.75)); }
-      100% { opacity:1; transform:scale(1); filter:blur(0) brightness(1) drop-shadow(0 0 9px rgba(147,197,253,.8)) drop-shadow(0 0 34px rgba(37,99,235,.6)); }
-    }
-    /* stardust streaks inward and coalesces into the logo */
-    @keyframes dustIn {
-      0%   { opacity:0; transform:translate(var(--tx,0), var(--ty,0)) scale(1.15); }
-      18%  { opacity:1; }
-      100% { opacity:0; transform:translate(0,0) scale(.2); }
-    }
-    @keyframes flareIn { 0% { opacity:0; transform:translate(-50%,-50%) scale(.5); } 100% { opacity:.85; transform:translate(-50%,-50%) scale(1); } }
-    @keyframes flarePulse { 0%,100% { opacity:.72; transform:translate(-50%,-50%) scale(1); } 50% { opacity:1; transform:translate(-50%,-50%) scale(1.07); } }
-    @keyframes heroTwinkle { 0%,100% { opacity:.2; } 50% { opacity:.4; } }
-  }
-
-  /* expanding header: big + transparent over the hero at top, shrinks to a blurred bar on scroll */
-  #topnav { transition: background .4s ease, box-shadow .4s ease, border-color .4s ease; border-bottom:1px solid transparent; }
+  /* expanding header — solid Midnight bar (hero is light), shrinks on scroll */
+  #topnav { background:#101828; transition: background .4s ease, box-shadow .4s ease, border-color .4s ease; border-bottom:1px solid transparent; }
   #topnav #navbar { height:7.5rem; transition: height .4s ease; }
   #topnav #navLogo { height:3.5rem; transition: height .4s ease; }
   #topnav #navWordmark { opacity:1; max-width:16rem; overflow:hidden;
@@ -141,7 +102,7 @@
   .nav-fade { animation: navIn .7s ease both; animation-delay: var(--d,0s); }
 
   @media (prefers-reduced-motion: reduce) {
-    .marq-track, .statbar-track, .glow-btn, .cosmic::before, .cloud-chip, .nav-fade { animation: none; }
+    .marq-track, .statbar-track, .glow-btn, .cosmic::before, .cloud-chip, .nav-fade, .hero-in { animation: none; }
     .reveal { opacity: 1; transform: none; transition: none; }
   }
 </style>
@@ -174,34 +135,21 @@
   </div>
 </nav>
 
-<!-- HERO — phoenix logo bursts in over a preserved blue-space backdrop, then shrinks on scroll -->
-<div id="heroTrack" class="relative" style="height:220vh;">
-  <div class="sticky top-0 h-screen w-full overflow-hidden">
-    <!-- preserved blue-space backdrop: nebula glow + subtle stars + vignette (no phoenix) -->
-    <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('assets/hero-bg-blur.jpg');"></div>
-    <div id="heroStars" class="absolute inset-0"></div>
-    <div id="heroVignette" class="absolute inset-0"></div>
-    <!-- fade the hero's bottom to the page color so it blends seamlessly into the cosmic section -->
-    <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-b from-transparent to-[#F8FAFC]"></div>
-
-    <div class="relative h-full flex flex-col items-center justify-center text-center px-6">
-      <div id="heroImgWrap" class="relative will-change-transform" style="transform-origin:center center;">
-        <div id="phoenixFlare"></div>
-        <img id="heroImg" src="assets/phoenix-blue.png" alt="Sigma Eta Pi phoenix" class="w-full max-w-lg mx-auto will-change-transform" style="transform-origin:center center;"/>
-        <div id="boom" class="pointer-events-none absolute left-1/2 top-1/2"></div>
-      </div>
-      <h1 id="heroHeadline" class="mt-8 text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.02] text-white opacity-0 will-change-transform">
-        Miami's Home For <span class="text-powder">Innovators</span>.
-      </h1>
-    </div>
-  </div>
-</div>
-
-<!-- everything after the landing page lives on the cosmic background -->
+<!-- everything lives on the light cosmic canvas; the hero is the navy primary mark -->
 <div class="cosmic">
 
+  <!-- HERO — navy primary mark, calm and static -->
+  <header class="min-h-[88vh] flex flex-col items-center justify-center text-center px-6 pt-36 pb-14">
+    <img src="assets/brand/sepi-mark-navy.png" alt="Sigma Eta Pi" class="hero-in w-full max-w-md mx-auto" style="--d:.1s"/>
+    <h1 class="hero-in mt-10 text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.02] text-midnight" style="--d:.3s">
+      Miami's Home For <span class="text-pop">Innovators</span>.
+    </h1>
+  </header>
+
   <!-- CHAPTER RESULTS — scrolling success stats, directly below the landing logo -->
-  <div class="statbar marq" aria-label="Chapter results">
+  <div class="statbar" aria-label="Miami chapter results">
+    <div class="statbar-label label">Miami Chapter</div>
+    <div class="marq flex-1">
     <div class="statbar-track">
       <div class="statbar-group">
         <span class="stat-item"><b>17</b><span>Ventures Started</span></span><span class="stat-dot" aria-hidden="true"></span>
@@ -216,14 +164,15 @@
         <span class="stat-item"><b>$310k+</b><span>Total Revenue</span></span><span class="stat-dot"></span>
       </div>
     </div>
+    </div>
   </div>
 
   <!-- PIECE 1 — TAKE A CHANCE (text left, Ventures cloud right) -->
-  <section class="max-w-6xl mx-auto px-6 pt-32 pb-28 grid lg:grid-cols-2 gap-14 items-center">
+  <section class="max-w-6xl mx-auto px-6 pt-24 pb-20 grid lg:grid-cols-2 gap-14 items-center">
     <div class="reveal">
       <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Take a<br/><span class="text-pop">chance</span></h2>
       <p class="mt-7 text-lg text-charcoal leading-relaxed max-w-lg">
-        When you're a student, shots on goal is a more valuable metric than goals scored — so we challenge you to grow your skills, connect with professionals, and gain experience through action, <span class="text-midnight font-semibold">not theory</span>. We provide the resources, mentorship, and a community of like-minded builders who push you to be better.
+        When you're a student, shots on goal are a more valuable metric than goals scored — so we challenge you to grow your skills, connect with professionals, and gain experience through action, <span class="text-midnight font-semibold">not theory</span>. We provide the resources, mentorship, and a community of like-minded builders who push you to be better.
       </p>
     </div>
     <div class="reveal flex flex-col items-center">
@@ -235,22 +184,8 @@
   </section>
 
   <!-- PIECE 2 — FIND YOUR COMMUNITY (photos left, text right) -->
-  <section class="max-w-6xl mx-auto px-6 py-28 grid lg:grid-cols-2 gap-14 items-center">
+  <section class="max-w-6xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-14 items-center">
     <div class="reveal order-2 lg:order-1 relative mx-auto w-full max-w-[540px] h-[470px] sm:h-[540px]">
-      <!-- night-glow squiggles, lines, sparkle stars, brackets & spirals -->
-      <svg class="absolute inset-0 w-full h-full pointer-events-none overflow-visible" viewBox="0 0 540 540" fill="none" aria-hidden="true">
-        <path d="M26,52 q14,-18 28,0 t28,0 t28,0 t28,0" stroke="#A7B6C5" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M505,46 C448,30 405,46 384,78" stroke="#516B84" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M384,78 l18,-7 M384,78 l9,18" stroke="#516B84" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M500,104 C503,120 510,127 526,130 C510,133 503,140 500,156 C497,140 490,133 474,130 C490,127 497,120 500,104 Z" fill="#A7B6C5"/>
-        <path d="M48,300 C50,310 55,315 65,317 C55,319 50,324 48,334 C46,324 41,319 31,317 C41,315 46,310 48,300 Z" fill="#BFCFDD"/>
-        <path d="M120,150 h-26 v26 M420,150 h26 v26 M120,498 h-26 v-26 M420,498 h26 v-26" stroke="#516B84" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M470,470 c0,-14 -20,-16 -24,-3 c-5,16 18,22 28,8 c11,-15 -8,-34 -27,-28" stroke="#A7B6C5" stroke-width="2.4" stroke-linecap="round"/>
-        <path d="M150,524 q18,-14 36,0 t36,0 t36,0" stroke="#A7B6C5" stroke-width="2.4" stroke-linecap="round"/>
-        <circle cx="70" cy="120" r="2.6" fill="#516B84"/>
-        <circle cx="500" cy="360" r="2.6" fill="#A7B6C5"/>
-        <circle cx="60" cy="470" r="2.2" fill="#516B84"/>
-      </svg>
       <img src="assets/community/20260511_181827_4D0F8C.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-white transition-transform duration-300 hover:z-10" style="left:3%;top:24px;width:56%;height:190px;transform:rotate(-3deg);z-index:2;box-shadow:0 12px 30px rgba(16,24,40,.18);"/>
       <img src="assets/community/20260422_074954_4E1929.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-white transition-transform duration-300 hover:z-10" style="right:2%;top:64px;width:42%;height:150px;transform:rotate(4deg);z-index:3;box-shadow:0 12px 30px rgba(16,24,40,.18);"/>
       <img src="assets/community/20260429_214338_42EDFE.jpg" alt="SEPi community" class="absolute rounded-xl object-cover border border-white transition-transform duration-300 hover:z-10" style="left:4%;top:228px;width:44%;height:150px;transform:rotate(-5deg);z-index:4;box-shadow:0 12px 30px rgba(16,24,40,.18);"/>
@@ -259,17 +194,17 @@
     <div class="reveal order-1 lg:order-2">
       <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Find your<br/><span class="text-pop">community</span></h2>
       <p class="mt-7 text-lg text-charcoal leading-relaxed max-w-lg">
-        We pull together Miami's most driven builders and creatives to form real friendships that last long after graduation. Members push each other, share what they're learning, and make entrepreneurship feel concrete. With small recruitment classes, we ensure deep connection between members and purposeful relationships.
+        We bring together Miami's builders and creatives to form real friendships that last long after graduation. Members push each other, share what they're learning, and make entrepreneurship feel concrete. With small recruitment classes, we ensure deep connection between members and purposeful relationships.
       </p>
     </div>
   </section>
 
   <!-- PIECE 3 — GROW YOUR CAREER (text left) -->
-  <section class="max-w-6xl mx-auto px-6 py-28 grid lg:grid-cols-2 gap-14 items-center">
+  <section class="max-w-6xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-14 items-center">
     <div class="reveal">
       <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.02]">Grow your<br/><span class="text-pop">career</span></h2>
       <p class="mt-7 text-lg text-charcoal leading-relaxed max-w-lg">
-        Realize your career ambitions and gain an unfair advantage through your skills, network, and experience. By offering opportunities like internships and co-ops as soon as you step foot on campus, we aim to gain as much experience as possible.
+        Gain a head start through internships, co-ops, and a professional network you start building day one — whether you're launching a venture or building a career in industry.
       </p>
     </div>
     <div class="reveal flex flex-col items-center">
@@ -281,12 +216,12 @@
   </section>
 
   <!-- SEE OUR SUCCESS -->
-  <section class="py-28 px-6 border-t hairline">
+  <section class="py-20 px-6 border-t hairline">
     <div class="max-w-5xl mx-auto text-center">
       <h2 class="reveal text-4xl md:text-6xl font-black tracking-tight">See our <span class="text-pop">Success</span></h2>
 
-      <div class="reveal mt-16">
-        <a href="recruitment.html" class="glow-btn inline-block label text-sm px-14 py-5 rounded-full bg-phoenix text-white hover:bg-phoenix-bright transition-all">Join the Fun</a>
+      <div class="reveal mt-12">
+        <a href="recruitment.html" class="glow-btn inline-block label text-sm px-14 py-5 rounded-full bg-phoenix text-white hover:bg-phoenix-bright transition-all">Apply for Fall 2026</a>
       </div>
     </div>
   </section>
@@ -319,82 +254,27 @@
 </div>
 
 <script>
-  // Scroll-shrink hero: the phoenix logo starts large and shrinks to its resting size
-  // as you scroll the track — nav and headline fade in. The blue-space backdrop stays put.
-  (function () {
-    const track = document.getElementById("heroTrack");
-    const wrap = document.getElementById("heroImgWrap");
-    const headline = document.getElementById("heroHeadline");
-    const nav = document.getElementById("topnav");
-    if (!track || !wrap) return;
-
-    // expanding header: visible + large at the top, shrinks to the compact bar once scrolled
-    if (nav) {
-      const onNav = () => nav.classList.toggle("scrolled", scrollY > 24);
-      addEventListener("scroll", onNav, { passive: true });
-      onNav();
-    }
-
-    function apply(p) {
-      const baseW = wrap.clientWidth, baseH = wrap.clientHeight;
-      if (!baseW || !baseH) return;
-      const big = Math.max(Math.min(innerWidth * 0.78 / baseW, innerHeight * 0.62 / baseH), 1);
-      wrap.style.transform = "scale(" + (1 + (big - 1) * (1 - p)) + ")"; // big at top, 1 once shrunk
-      const hp = Math.min(Math.max((p - 0.6) / 0.4, 0), 1);
-      headline.style.opacity = hp;
-      headline.style.transform = "translateY(" + (1 - hp) * 24 + "px)";
-    }
-
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      track.style.height = "100vh";
-      headline.style.opacity = 1;
-      return;
-    }
-
-    function progress() {
-      const scrollable = track.offsetHeight - innerHeight;
-      if (scrollable <= 0) return 0;
-      const raw = (scrollY - track.offsetTop) / scrollable;
-      return Math.min(Math.max(raw / 0.8, 0), 1); // finish the shrink at 80% of the track, brief hold after
-    }
-    function render() { apply(progress()); }
-    let ticking = false;
-    addEventListener("scroll", function () {
-      if (ticking) return; ticking = true;
-      requestAnimationFrame(function () { render(); ticking = false; });
-    }, { passive: true });
-    addEventListener("resize", render);
-    if (window.ResizeObserver) new ResizeObserver(render).observe(wrap);
-    addEventListener("load", render);
-    render();
-
-    // --- stardust: particles streak inward from deep space and coalesce into the logo ---
-    const boom = document.getElementById("boom");
-    if (boom && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const N = 34;
-      for (let i = 0; i < N; i++) {
-        const dot = document.createElement("span");
-        dot.className = "boom-particle";
-        const ang = (i / N) * Math.PI * 2 + Math.random() * 0.5;
-        const dist = 220 + Math.random() * 320;                    // start far out, converge to center
-        dot.style.setProperty("--tx", (Math.cos(ang) * dist).toFixed(1) + "px");
-        dot.style.setProperty("--ty", (Math.sin(ang) * dist).toFixed(1) + "px");
-        const s = 0.5 + Math.random();
-        dot.style.width = dot.style.height = (4 * s).toFixed(1) + "px";
-        dot.style.animationDelay = (0.45 + Math.random() * 0.5).toFixed(2) + "s"; // staggered arrival
-        boom.appendChild(dot);
-      }
-    }
-  })();
+  // expanding header: shrink to the compact bar once scrolled
+  (function(){ const nav=document.getElementById("topnav"); if(nav){ const f=()=>nav.classList.toggle("scrolled", scrollY>24); addEventListener("scroll", f, {passive:true}); f(); } })();
 </script>
 
 <script>
-  // company logos: member-built ventures + where members work
+  // company logos: member-built ventures + where members work (partner logos link out)
   const VENTURES = ["aia","bored-ape-racket","chores","flexform","founders-fair","huzzsco","noal","rackramp","pepti-ai"];
-  const WORKED = ["cintrifuse","cleveland-clinic","cursor","gallagher","medtronic","pieces","spirair"];
-  const cloudChip = n => `<div class="cloud-chip" style="--dur:${(5+Math.random()*3).toFixed(2)}s;--delay:${(Math.random()*4).toFixed(2)}s"><img src="assets/logos/${n}.png" alt=""/></div>`;
+  const WORKED = [
+    { n: "cintrifuse",       name: "Cintrifuse",       url: "https://cintrifuse.com" },
+    { n: "cleveland-clinic", name: "Cleveland Clinic", url: "https://my.clevelandclinic.org" },
+    { n: "cursor",           name: "Cursor",           url: "https://cursor.com" },
+    { n: "gallagher",        name: "Gallagher",        url: "https://www.ajg.com" },
+    { n: "medtronic",        name: "Medtronic",        url: "https://www.medtronic.com/en-us/index.html" },
+    { n: "pieces",           name: "Pieces",           url: "https://pieces.app" },
+    { n: "spirair",          name: "Spirit Air",       url: "https://spirair.com" },
+  ];
+  const bob = () => `style="--dur:${(5+Math.random()*3).toFixed(2)}s;--delay:${(Math.random()*4).toFixed(2)}s"`;
+  const cloudChip = n => `<div class="cloud-chip" ${bob()}><img src="assets/logos/${n}.png" alt=""/></div>`;
+  const linkChip = c => `<a class="cloud-chip" ${bob()} href="${c.url}" target="_blank" rel="noopener noreferrer" aria-label="${c.name}"><img src="assets/logos/${c.n}.png" alt="${c.name}"/></a>`;
   document.getElementById("venturesCloud").innerHTML = VENTURES.map(cloudChip).join("");
-  document.getElementById("worksCloud").innerHTML = WORKED.map(cloudChip).join("");
+  document.getElementById("worksCloud").innerHTML = WORKED.map(linkChip).join("");
 
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
   document.querySelectorAll(".reveal").forEach(el => io.observe(el));
