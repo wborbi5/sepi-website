@@ -47,9 +47,10 @@
   #topnav.scrolled #navLinks a { font-size:.66rem; }
   @keyframes navIn { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:none; } }
   .nav-fade { animation: navIn .7s ease both; animation-delay: var(--d,0s); }
-  /* ===== waxing-moon phase markers ===== */
-  .moon { display:block; filter: drop-shadow(0 8px 18px rgba(31,58,95,.30)); }
-  .moon-full { filter: drop-shadow(0 10px 26px rgba(31,58,95,.45)); }
+  /* ===== phase number markers ===== */
+  .phase-num { font-family: "Fraunces", serif; font-weight: 600; line-height: 1; color: #1F3A5F;
+    font-size: 4.5rem; }
+  @media (min-width: 640px) { .phase-num { font-size: 6.5rem; } }
   @media (prefers-reduced-motion: reduce) { .nav-fade { animation: none; } }
 </style>
 </head>
@@ -89,27 +90,13 @@
   </div>
 </header>
 
-<!-- shared moon-phase defs (waxing crescent -> full) -->
-<svg width="0" height="0" class="absolute" aria-hidden="true">
-  <defs>
-    <radialGradient id="moonGrad" cx="40%" cy="36%" r="72%">
-      <stop offset="0%" stop-color="#BFCFDD"/>
-      <stop offset="68%" stop-color="#516B84"/>
-      <stop offset="100%" stop-color="#1F3A5F"/>
-    </radialGradient>
-    <mask id="phase1"><circle cx="50" cy="50" r="47" fill="#fff"/><circle cx="22" cy="50" r="48" fill="#000"/></mask>
-    <mask id="phase2"><circle cx="50" cy="50" r="47" fill="#fff"/><circle cx="2" cy="50" r="48" fill="#000"/></mask>
-    <mask id="phase3"><circle cx="50" cy="50" r="47" fill="#fff"/><circle cx="-22" cy="50" r="48" fill="#000"/></mask>
-  </defs>
-</svg>
-
-<!-- PHASES — the moon waxes to full as you climb -->
+<!-- PHASES — numbered 1 through 4 -->
 <section class="pb-28 px-6">
   <div class="max-w-5xl mx-auto space-y-20 sm:space-y-28">
 
     <div class="reveal grid grid-cols-[auto_1fr] gap-7 sm:gap-14 items-center">
       <div class="w-24 sm:w-32 flex justify-center shrink-0">
-        <svg class="moon w-20 h-20 sm:w-28 sm:h-28" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="url(#moonGrad)" mask="url(#phase1)"/></svg>
+        <span class="phase-num" aria-hidden="true">1</span>
       </div>
       <div>
         <p class="label text-[11px] text-pop mb-2">01</p>
@@ -120,7 +107,7 @@
 
     <div class="reveal grid grid-cols-[auto_1fr] gap-7 sm:gap-14 items-center">
       <div class="w-24 sm:w-32 flex justify-center shrink-0">
-        <svg class="moon w-20 h-20 sm:w-28 sm:h-28" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="url(#moonGrad)" mask="url(#phase2)"/></svg>
+        <span class="phase-num" aria-hidden="true">2</span>
       </div>
       <div>
         <p class="label text-[11px] text-pop mb-2">02</p>
@@ -131,7 +118,7 @@
 
     <div class="reveal grid grid-cols-[auto_1fr] gap-7 sm:gap-14 items-center">
       <div class="w-24 sm:w-32 flex justify-center shrink-0">
-        <svg class="moon w-20 h-20 sm:w-28 sm:h-28" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="url(#moonGrad)" mask="url(#phase3)"/></svg>
+        <span class="phase-num" aria-hidden="true">3</span>
       </div>
       <div>
         <p class="label text-[11px] text-pop mb-2">03</p>
@@ -142,7 +129,7 @@
 
     <div class="reveal grid grid-cols-[auto_1fr] gap-7 sm:gap-14 items-center">
       <div class="w-24 sm:w-32 flex justify-center shrink-0">
-        <svg class="moon moon-full w-20 h-20 sm:w-28 sm:h-28" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="url(#moonGrad)"/></svg>
+        <span class="phase-num" aria-hidden="true">4</span>
       </div>
       <div>
         <p class="label text-[11px] text-pop mb-2">04</p>
