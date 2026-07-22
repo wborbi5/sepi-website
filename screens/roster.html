@@ -203,7 +203,7 @@
   const grid = (html) => `<div class="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">${html}</div>`;
 
   // Executive Board — members with a role, ordered by seniority
-  const rolePriority = ["Co-President", "VP of Finance", "VP of Recruitment", "VP of External Partners", "VP of Mentorship", "VP of Marketing", "VP of Professionalism", "VP of Culture"];
+  const rolePriority = ["Co-President", "VP of Recruitment", "VP of External Partners", "VP of Mentorship", "VP of Marketing", "VP of Professionalism", "VP of Culture", "VP of Finance"];
   const exec = MEMBERS.filter((m) => m.role).sort((a, b) => rolePriority.indexOf(a.role) - rolePriority.indexOf(b.role));
   document.getElementById("execView").innerHTML = grid(exec.map((m) => card(m, m.role)).join(""));
 
