@@ -68,14 +68,6 @@
   .dropcap::first-letter { font-family:"Fraunces",serif; font-weight:600; font-size:3.6rem; line-height:.8; float:left;
     padding:8px 14px 0 0; color:#1b2a8c; }
 
-  /* ===== sparks ===== */
-  .shooting-star { position:absolute; width:130px; height:2px; border-radius:2px; opacity:0; z-index:1; pointer-events:none;
-    background:linear-gradient(90deg, #ffffff, rgba(147,197,253,.5), transparent);
-    filter: drop-shadow(0 0 6px rgba(147,197,253,.9)); transform: rotate(16deg); }
-  .shooting-star.s1 { top:16%; left:-12%; animation: shoot 7s ease-in 2s infinite; }
-  .shooting-star.s2 { top:34%; left:-12%; animation: shoot 9s ease-in 5.5s infinite; }
-  @keyframes shoot { 0%{opacity:0;transform:translate(0,0) rotate(16deg);} 5%{opacity:1;} 22%{opacity:0;transform:translate(78vw,24vh) rotate(16deg);} 100%{opacity:0;} }
-
   /* ===== scattered photos (home-style collage) ===== */
   .gphoto { position:absolute; border-radius:14px; object-fit:cover; border:1px solid #FFFFFF;
     box-shadow:0 12px 30px rgba(16,24,40,.18); transition: transform .35s cubic-bezier(.2,.8,.2,1.05); }
@@ -108,7 +100,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity:1; transform:none; transition:none; }
-    .galaxy::before, .nav-fade, .shooting-star, .pmarq-track { animation: none; }
+    .galaxy::before, .nav-fade, .pmarq-track { animation: none; }
   }
 </style>
 </head>
@@ -143,8 +135,6 @@
 <!-- ===== HERO — founding story over a spinning galaxy ===== -->
 <header class="relative min-h-[78vh] flex flex-col items-center justify-center text-center px-6 pt-28 overflow-hidden bg-midnight text-white">
   <div class="galaxy" aria-hidden="true"></div>
-  <div class="shooting-star s1" aria-hidden="true"></div>
-  <div class="shooting-star s2" aria-hidden="true"></div>
   <div class="relative z-10 max-w-4xl mx-auto">
     <h1 class="space-title text-5xl sm:text-7xl lg:text-8xl leading-[0.95]">Sigma Eta Pi</h1>
     <p class="mt-8 text-lg sm:text-xl text-white/80 leading-relaxed max-w-3xl mx-auto">
@@ -300,7 +290,7 @@
 
   /* ---------- photo marquee ---------- */
   (function () {
-    const ids = ["about-09", "about-10", "about-11", "about-12", "about-13", "about-02", "about-06", "about-08"];
+    const ids = ["about-09", "about-14", "about-10", "about-11", "about-12", "about-13", "about-02", "about-06", "about-08"];
     const track = document.getElementById("photoMarq");
     if (track) track.innerHTML = ids.concat(ids).map((n) => `<img src="assets/about/${n}.jpg" alt="Sigma Eta Pi" loading="lazy"/>`).join("");
   })();
