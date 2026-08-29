@@ -264,17 +264,23 @@
   // company logos: member-built ventures + where members work (partner logos link out)
   const VENTURES = ["aia","bored-ape-racket","chores","flexform","founders-fair","huzzsco","noal","rackramp","pepti-ai"];
   const WORKED = [
+    { n: "ai-answered",      name: "AI Answered" },
     { n: "cintrifuse",       name: "Cintrifuse",       url: "https://cintrifuse.com" },
     { n: "cleveland-clinic", name: "Cleveland Clinic", url: "https://my.clevelandclinic.org" },
     { n: "cursor",           name: "Cursor",           url: "https://cursor.com" },
+    { n: "drip",             name: "DRiP" },
     { n: "gallagher",        name: "Gallagher",        url: "https://www.ajg.com" },
     { n: "medtronic",        name: "Medtronic",        url: "https://www.medtronic.com/en-us/index.html" },
     { n: "pieces",           name: "Pieces",           url: "https://pieces.app" },
+    { n: "shaker",           name: "Shaker Recruitment Marketing", url: "https://shaker.com" },
     { n: "spirair",          name: "Spirit Air",       url: "https://spirair.com" },
+    { n: "stack",            name: "Stack" },
   ];
   const bob = () => `style="--dur:${(5+Math.random()*3).toFixed(2)}s;--delay:${(Math.random()*4).toFixed(2)}s"`;
   const cloudChip = n => `<div class="cloud-chip" ${bob()}><img src="assets/logos/${n}.png" alt=""/></div>`;
-  const linkChip = c => `<a class="cloud-chip" ${bob()} href="${c.url}" target="_blank" rel="noopener noreferrer" aria-label="${c.name}"><img src="assets/logos/${c.n}.png" alt="${c.name}"/></a>`;
+  const linkChip = c => c.url
+    ? `<a class="cloud-chip" ${bob()} href="${c.url}" target="_blank" rel="noopener noreferrer" aria-label="${c.name}"><img src="assets/logos/${c.n}.png" alt="${c.name}"/></a>`
+    : `<div class="cloud-chip" ${bob()}><img src="assets/logos/${c.n}.png" alt="${c.name}"/></div>`;
   document.getElementById("venturesCloud").innerHTML = VENTURES.map(cloudChip).join("");
   document.getElementById("worksCloud").innerHTML = WORKED.map(linkChip).join("");
 
